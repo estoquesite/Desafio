@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Desafio de Poupança 50k • Rosa Neon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #0d060a;
+      color: #fdf2f8;
+      overflow-x: hidden;
+    }
+
+    /* Brilhos Rosa Neon */
+    .neon-glow {
+      box-shadow: 0 0 16px rgba(255, 0, 127, 0.35), inset 0 0 8px rgba(255, 42, 133, 0.15);
+    }
+
+    .neon-glow-strong {
+      box-shadow: 0 0 24px rgba(255, 0, 127, 0.6), 0 0 8px rgba(255, 102, 178, 0.4);
+    }
+
+    .neon-text-glow {
+      text-shadow: 0 0 12px rgba(255, 0, 127, 0.55);
+    }
+
+    /* Corte diagonal luminoso rosa neon nas casinhas concluídas */
+    .box-slashed::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 2.5px;
+      background: linear-gradient(90deg, transparent, #ff007f, #ff85c2, #ff007f, transparent);
+      box-shadow: 0 0 8px rgba(255, 0, 127, 0.95);
+      transform: translateY(-50%) rotate(-24deg);
+      pointer-events: none;
+      border-radius: 9999px;
+    }
+
+    /* Animação ao marcar uma casinha */
+    @keyframes popIn {
+      0% { transform: scale(0.88); }
+      55% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+
+    .animate-pop {
+      animation: popIn 0.24s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Animação da roleta no sorteio */
+    @keyframes pulseNeon {
+      0%, 100% {
+        box-shadow: 0 0 0 2px #ff007f, 0 0 20px rgba(255, 0, 127, 0.75);
+        transform: scale(1.05);
+        background-color: rgba(255, 0, 127, 0.28);
+      }
+      50% {
+        box-shadow: 0 0 0 3px #ff66b2, 0 0 28px rgba(255, 42, 133, 0.95);
+        transform: scale(1.08);
+        background-color: rgba(255, 42, 133, 0.38);
+      }
+    }
+
+    .animate-roulette {
+      animation: pulseNeon 0.45s ease-in-out infinite;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0d060a] text-pink-50 antialiased selection:bg-[#ff007f] selection:text-white">
+
+  <!-- Container Principal Responsivo -->
+  <div class="max-w-lg mx-auto px-3.5 sm:px-5 pt-4 pb-28">
+
+    <!-- 1. Cabeçalho Global Discreto -->
+    <header class="mb-3.5">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-baseline gap-2 min-w-0">
+          <span id="global-percent" class="text-lg sm:text-xl font-black text-[#ff007f] neon-text-glow tracking-tight">
+            0,00%
+          </span>
+          <span class="text-pink-400/50 text-xs">•</span>
+          <h1 id="global-amount" class="text-sm sm:text-base font-extrabold text-white tracking-tight truncate">
+            R$ 0 de R$ 50.000
+          </h1>
+        </div>
+
+        <!-- Botão Zerar Progresso -->
+        <button
+          id="btn-open-reset"
+          type="button"
+          title="Zerar progresso do desafio"
+          class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#1a0d14] hover:bg-[#26121d] border border-[#331826] text-pink-200/75 hover:text-[#ff66b2] text-xs font-semibold transition-all active:scale-95"
+        >
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          <span>Zerar</span>
+        </button>
+      </div>
+
+      <!-- Status de Salvamento Automático -->
+      <div class="flex items-center gap-1.5 mt-1">
+        <svg class="w-3.5 h-3.5 text-[#ff007f] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+          <path d="m9 15 2 2 4-4" />
+        </svg>
+        <span id="save-status-text" class="text-[11px] sm:text-xs font-medium text-[#ff66b2]">
+          Salvo no dispositivo
+        </span>
+      </div>
+
+      <!-- Barra de Progresso Global -->
+      <div class="w-full h-1.5 bg-[#1a0d14] rounded-full overflow-hidden mt-2 border border-[#331826]/70">
+        <div
+          id="global-progress-bar"
+          class="h-full bg-gradient-to-r from-[#ff007f] via-[#ff2a85] to-[#ff66b2] rounded-full transition-all duration-300 ease-out"
+          style="width: 0%"
+        ></div>
+      </div>
+    </header>
+
+    <!-- 2. Abas Semestrais (1º Semestre e 2º Semestre) -->
+    <nav aria-label="Rodadas Semestrais" class="grid grid-cols-2 gap-2.5 mb-3.5" id="rounds-tabs">
+      <!-- Renderizado dinamicamente via JS -->
+    </nav>
+
+    <!-- 3. Resumo Compacto da Rodada Ativa -->
+    <section class="mb-3 pb-2.5 border-b border-[#331826]">
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <h2 id="active-round-title" class="text-base sm:text-lg font-extrabold text-white tracking-tight leading-tight">
+            1º Semestre • Rodada 1
+          </h2>
+          <p class="text-[11px] sm:text-xs text-pink-200/60 font-medium">
+            Casinhas de <span class="text-[#ff66b2] font-semibold">R$ 20 a R$ 980</span>
+          </p>
+        </div>
+
+        <div class="text-right">
+          <div id="active-round-amount" class="text-sm sm:text-base font-extrabold text-white tracking-tight leading-tight">
+            R$ 0 de R$ 25.000
+          </div>
+          <p id="active-round-count" class="text-[11px] sm:text-xs text-pink-200/60 font-medium">
+            0 de 50 casinhas
+          </p>
+        </div>
+      </div>
+
+      <!-- Barra de Progresso da Rodada -->
+      <div class="w-full h-1 bg-[#1a0d14] rounded-full overflow-hidden mt-2">
+        <div
+          id="round-progress-bar"
+          class="h-full bg-gradient-to-r from-[#ff007f] to-[#ff66b2] rounded-full transition-all duration-300 ease-out"
+          style="width: 0%"
+        ></div>
+      </div>
+    </section>
+
+    <!-- 4. Barra de Ferramentas: Sortear Casinha + Filtros Rápidos -->
+    <section class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+      <button
+        id="btn-draw-box"
+        type="button"
+        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#ff2a85] hover:from-[#ff1a8c] hover:to-[#ff4797] text-white text-xs sm:text-sm font-extrabold neon-glow transition-all active:scale-95"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="12" height="12" x="2" y="10" rx="2" ry="2" />
+          <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" />
+          <path d="M6 18h.01" />
+          <path d="M10 14h.01" />
+          <path d="M15 6h.01" />
+          <path d="M18 9h.01" />
+        </svg>
+        <span>Sortear Casinha</span>
+      </button>
+
+      <!-- Filtros Rápidos -->
+      <div class="inline-flex items-center p-1 rounded-xl bg-[#1a0d14] border border-[#331826]" role="group" aria-label="Filtrar casinhas">
+        <button
+          type="button"
+          data-filter="all"
+          class="filter-btn px-2.5 py-1 rounded-lg text-xs font-bold transition-all bg-[#ff007f] text-white shadow-sm"
+        >
+          Todas
+        </button>
+        <button
+          type="button"
+          data-filter="pending"
+          class="filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition-all text-pink-200/70 hover:text-white"
+        >
+          Pendentes
+        </button>
+        <button
+          type="button"
+          data-filter="completed"
+          class="filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition-all text-pink-200/70 hover:text-white"
+        >
+          Concluídas
+        </button>
+      </div>
+    </section>
+
+    <!-- 5. Grade Principal de 50 Casinhas (5 colunas no mobile) -->
+    <main>
+      <div
+        id="boxes-grid"
+        class="grid grid-cols-5 gap-2 sm:gap-2.5"
+        aria-label="Grade de 50 casinhas da rodada"
+      >
+        <!-- Gerado via JavaScript -->
+      </div>
+
+      <!-- Estado vazio para filtros -->
+      <div id="empty-filter-state" class="hidden text-center py-12 px-4 rounded-2xl bg-[#1a0d14] border border-[#331826] mt-2">
+        <p id="empty-filter-text" class="text-sm text-pink-200/70 font-medium">
+          Nenhuma casinha encontrada neste filtro.
+        </p>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Barra Flutuante Discreta de Aporte Atual da Sessão -->
+  <div
+    id="session-cart-bar"
+    class="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 opacity-0 translate-y-4 pointer-events-none transition-all duration-300 w-[94%] max-w-lg"
+  >
+    <div class="bg-[#1a0d14]/95 backdrop-blur-md border border-[#ff007f] px-3.5 py-2.5 rounded-2xl neon-glow-strong flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="w-2 h-2 rounded-full bg-[#ff007f] animate-ping shrink-0"></span>
+        <p class="text-xs sm:text-sm font-bold text-white truncate">
+          Aporte atual: <span id="session-cart-amount" class="text-[#ff66b2] font-black">R$ 0</span>
+          <span id="session-cart-count" class="text-pink-200/75 font-medium text-xs">• 0 casinhas</span>
+        </p>
+      </div>
+      <button
+        id="btn-clear-session"
+        type="button"
+        class="shrink-0 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#ff2a85] hover:from-[#ff1a8c] hover:to-[#ff4797] text-white text-xs font-extrabold active:scale-95 transition-all shadow-md"
+      >
+        Concluir
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Flutuante de Feedback -->
+  <div
+    id="toast-banner"
+    class="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 w-[92%] max-w-sm"
+  >
+    <div class="bg-[#1f0e17] border border-[#ff007f] text-white px-4 py-3 rounded-2xl neon-glow flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#ff007f] animate-pulse shrink-0"></span>
+        <div>
+          <p id="toast-title" class="text-xs text-pink-200/75 font-medium">Aporte salvo</p>
+          <p id="toast-value" class="text-sm font-extrabold text-white">R$ 0</p>
+        </div>
+      </div>
+      <span id="toast-badge" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#ff007f]/25 text-[#ff66b2]">
+        Concluído
+      </span>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação da Casinha Sorteada -->
+  <div
+    id="draw-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="draw-modal-title"
+  >
+    <div class="w-full max-w-sm rounded-3xl bg-[#1a0d14] border-2 border-[#ff007f] p-6 neon-glow-strong text-center">
+      <div class="w-12 h-12 rounded-2xl bg-[#ff007f]/20 border border-[#ff007f]/50 text-[#ff007f] flex items-center justify-center mx-auto mb-3">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="12" height="12" x="2" y="10" rx="2" ry="2" />
+          <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" />
+        </svg>
+      </div>
+      <p class="text-xs uppercase tracking-widest font-bold text-[#ff66b2] mb-1">Casinha Sorteada</p>
+      <h3 id="draw-modal-title" class="text-3xl font-black text-white neon-text-glow mb-2">R$ 0</h3>
+      <p id="draw-modal-subtitle" class="text-xs sm:text-sm text-pink-200/75 leading-relaxed mb-5">
+        Deseja marcar esta casinha como concluída agora?
+      </p>
+      <div class="grid grid-cols-2 gap-2.5">
+        <button
+          id="btn-cancel-draw"
+          type="button"
+          class="px-4 py-2.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#3d1d2e] text-pink-100 text-sm font-semibold transition-colors"
+        >
+          Agora não
+        </button>
+        <button
+          id="btn-confirm-draw"
+          type="button"
+          class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#ff2a85] hover:from-[#ff1a8c] hover:to-[#ff4797] text-white text-sm font-extrabold transition-all neon-glow"
+        >
+          Marcar R$
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação para Zerar Progresso -->
+  <div
+    id="reset-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="reset-modal-title"
+  >
+    <div class="w-full max-w-sm rounded-3xl bg-[#1a0d14] border border-[#331826] p-6 shadow-2xl">
+      <div class="w-11 h-11 rounded-2xl bg-[#ff007f]/15 border border-[#ff007f]/40 text-[#ff007f] flex items-center justify-center mb-4">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      </div>
+      <h3 id="reset-modal-title" class="text-lg font-extrabold text-white mb-1.5">
+        Zerar todo o progresso?
+      </h3>
+      <p class="text-sm text-pink-200/70 leading-relaxed mb-5">
+        Todas as casinhas marcadas no <strong class="text-white">1º Semestre</strong> e <strong class="text-white">2º Semestre</strong> serão desmarcadas. Esta ação não pode ser desfeita.
+      </p>
+      <div class="grid grid-cols-2 gap-2.5">
+        <button
+          id="btn-cancel-reset"
+          type="button"
+          class="px-4 py-2.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#3d1d2e] text-pink-100 text-sm font-semibold transition-colors"
+        >
+          Cancelar
+        </button>
+        <button
+          id="btn-confirm-reset"
+          type="button"
+          class="px-4 py-2.5 rounded-xl bg-[#ff007f] hover:bg-[#ff2a85] text-white text-sm font-bold transition-colors neon-glow"
+        >
+          Sim, zerar tudo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Matemática Exata Semestral para R$ 50.000,00:
+     * - 2 Rodadas Semestrais (1º Semestre e 2º Semestre) de 50 casinhas cada
+     * - Valores de R$ 20 a R$ 980 (progressão de R$ 20 em R$ 20 = 49 casinhas somando R$ 24.500)
+     *   + 1 casinha extra de R$ 500 ordenada = 50 casinhas somando exatos R$ 25.000,00 por semestre
+     * - Total Global: 2 × R$ 25.000,00 = R$ 50.000,00
+     */
+    const STORAGE_KEY = 'desafio_poupanca_50k_semestral_rosa_neon_v3';
+    const TOTAL_ROUNDS = 2;
+    const BOXES_PER_ROUND = 50;
+    const ROUND_TOTAL_VALUE = 25000;
+    const GLOBAL_TOTAL_VALUE = 50000;
+
+    // Gera as 50 casinhas ordenadas somando exatamente R$ 25.000
+    const ROUND_BOXES = (() => {
+      const values = [];
+      for (let v = 20; v <= 980; v += 20) {
+        values.push(v);
+        if (v === 500) {
+          values.push(500); // Casinha extra de R$ 500 para fechar R$ 25.000 exatos
+        }
+      }
+      return values.map((value, index) => ({
+        id: index,
+        value,
+      }));
+    })();
+
+    // Estado da Aplicação
+    let state = {
+      activeRound: 1, // 1 (1º Semestre) ou 2 (2º Semestre)
+      filter: 'all',  // 'all' | 'pending' | 'completed'
+      isDrawing: false,
+      pendingDrawnBoxId: null,
+      completed: {
+        1: [],
+        2: [],
+      },
+      // Contador discreto da sessão atual ("Aporte atual")
+      sessionSelected: [], // [{ round, id, value }]
+    };
+
+    // Referências do DOM
+    const elGlobalPercent = document.getElementById('global-percent');
+    const elGlobalAmount = document.getElementById('global-amount');
+    const elGlobalProgressBar = document.getElementById('global-progress-bar');
+    const elSaveStatusText = document.getElementById('save-status-text');
+
+    const elRoundsTabs = document.getElementById('rounds-tabs');
+    const elActiveRoundTitle = document.getElementById('active-round-title');
+    const elActiveRoundAmount = document.getElementById('active-round-amount');
+    const elActiveRoundCount = document.getElementById('active-round-count');
+    const elRoundProgressBar = document.getElementById('round-progress-bar');
+
+    const elBoxesGrid = document.getElementById('boxes-grid');
+    const elEmptyFilterState = document.getElementById('empty-filter-state');
+    const elEmptyFilterText = document.getElementById('empty-filter-text');
+
+    const elBtnDrawBox = document.getElementById('btn-draw-box');
+    const elFilterBtns = document.querySelectorAll('.filter-btn');
+
+    // Barra Flutuante da Sessão Atual
+    const elSessionCartBar = document.getElementById('session-cart-bar');
+    const elSessionCartAmount = document.getElementById('session-cart-amount');
+    const elSessionCartCount = document.getElementById('session-cart-count');
+    const elBtnClearSession = document.getElementById('btn-clear-session');
+
+    // Modais e Toast
+    const elResetModal = document.getElementById('reset-modal');
+    const elBtnOpenReset = document.getElementById('btn-open-reset');
+    const elBtnCancelReset = document.getElementById('btn-cancel-reset');
+    const elBtnConfirmReset = document.getElementById('btn-confirm-reset');
+
+    const elDrawModal = document.getElementById('draw-modal');
+    const elDrawModalTitle = document.getElementById('draw-modal-title');
+    const elDrawModalSubtitle = document.getElementById('draw-modal-subtitle');
+    const elBtnCancelDraw = document.getElementById('btn-cancel-draw');
+    const elBtnConfirmDraw = document.getElementById('btn-confirm-draw');
+
+    const elToastBanner = document.getElementById('toast-banner');
+    const elToastTitle = document.getElementById('toast-title');
+    const elToastValue = document.getElementById('toast-value');
+    const elToastBadge = document.getElementById('toast-badge');
+    let toastTimeout = null;
+
+    function formatBRL(value) {
+      return 'R$ ' + value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    function formatGlobalPercent(percent) {
+      return percent.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
+    }
+
+    function getRoundStats(roundNumber) {
+      const checkedIds = state.completed[roundNumber] || [];
+      const sum = checkedIds.reduce((acc, id) => acc + (ROUND_BOXES[id]?.value || 0), 0);
+      const count = checkedIds.length;
+      const percent = Math.round((sum / ROUND_TOTAL_VALUE) * 100);
+      return { sum, count, percent };
+    }
+
+    function renderHeader() {
+      let totalSaved = 0;
+      for (let r = 1; r <= TOTAL_ROUNDS; r++) {
+        totalSaved += getRoundStats(r).sum;
+      }
+      const globalPercent = (totalSaved / GLOBAL_TOTAL_VALUE) * 100;
+      elGlobalPercent.textContent = formatGlobalPercent(globalPercent);
+      elGlobalAmount.textContent = `${formatBRL(totalSaved)} de ${formatBRL(GLOBAL_TOTAL_VALUE)}`;
+      elGlobalProgressBar.style.width = `${Math.min(100, globalPercent)}%`;
+    }
+
+    function renderSessionBar() {
+      const count = state.sessionSelected.length;
+      if (count === 0) {
+        elSessionCartBar.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        elSessionCartBar.classList.remove('opacity-100', 'translate-y-0');
+        return;
+      }
+
+      const totalSession = state.sessionSelected.reduce((acc, item) => acc + item.value, 0);
+      elSessionCartAmount.textContent = formatBRL(totalSession);
+      elSessionCartCount.textContent = `• ${count} ${count === 1 ? 'casinha' : 'casinhas'}`;
+
+      elSessionCartBar.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      elSessionCartBar.classList.add('opacity-100', 'translate-y-0');
+    }
+
+    function showToast(title, valueText, badgeText) {
+      if (toastTimeout) clearTimeout(toastTimeout);
+      elToastTitle.textContent = title;
+      elToastValue.textContent = valueText;
+      elToastBadge.textContent = badgeText;
+
+      elToastBanner.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+      elToastBanner.classList.add('opacity-100', 'translate-y-0');
+
+      toastTimeout = setTimeout(() => {
+        elToastBanner.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+        elToastBanner.classList.remove('opacity-100', 'translate-y-0');
+      }, 2600);
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.completed) {
+            for (let r = 1; r <= TOTAL_ROUNDS; r++) {
+              if (Array.isArray(parsed.completed[r])) {
+                state.completed[r] = parsed.completed[r].filter(
+                  (id) => Number.isInteger(id) && id >= 0 && id < BOXES_PER_ROUND
+                );
+              }
+            }
+          }
+          if (parsed && parsed.activeRound >= 1 && parsed.activeRound <= TOTAL_ROUNDS) {
+            state.activeRound = parsed.activeRound;
+          }
+        }
+      } catch (err) {
+        console.error('Erro ao carregar progresso salvo:', err);
+      }
+    }
+
+    function saveProgress() {
+      try {
+        const payload = {
+          activeRound: state.activeRound,
+          completed: state.completed,
+          updatedAt: new Date().toISOString(),
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+
+        elSaveStatusText.textContent = 'Salvando...';
+        setTimeout(() => {
+          elSaveStatusText.textContent = 'Salvo no dispositivo';
+        }, 350);
+      } catch (err) {
+        console.error('Erro ao salvar progresso:', err);
+        elSaveStatusText.textContent = 'Erro ao salvar localmente';
+      }
+    }
+
+    function renderTabs() {
+      elRoundsTabs.innerHTML = '';
+
+      for (let r = 1; r <= TOTAL_ROUNDS; r++) {
+        const isActive = state.activeRound === r;
+        const { sum, count, percent } = getRoundStats(r);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
+        btn.className = isActive
+          ? 'flex flex-col items-center justify-center py-2.5 px-3 rounded-2xl bg-[#1a0d14] border-2 border-[#ff007f] neon-glow transition-all'
+          : 'flex flex-col items-center justify-center py-2.5 px-3 rounded-2xl bg-[#1a0d14]/75 border border-[#331826] hover:border-[#ff007f]/40 transition-all';
+
+        btn.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <span class="text-sm sm:text-base font-extrabold ${isActive ? 'text-white' : 'text-pink-100/75'} tracking-tight">
+              ${r}º Semestre
+            </span>
+            <span class="text-[11px] font-bold px-1.5 py-0.5 rounded-md ${isActive ? 'bg-[#ff007f]/25 text-[#ff66b2]' : 'bg-[#24121c] text-pink-300/50'}">
+              ${percent}%
+            </span>
+          </div>
+          <div class="text-[11px] font-medium ${isActive ? 'text-pink-200/80' : 'text-pink-300/45'} mt-1">
+            ${formatBRL(sum)} • ${count}/50
+          </div>
+        `;
+
+        btn.addEventListener('click', () => {
+          if (state.isDrawing) return;
+          state.activeRound = r;
+          saveProgress();
+          renderAll();
+        });
+
+        elRoundsTabs.appendChild(btn);
+      }
+    }
+
+    function renderActiveRoundSummary() {
+      const r = state.activeRound;
+      const { sum, count } = getRoundStats(r);
+      const exactPercent = (sum / ROUND_TOTAL_VALUE) * 100;
+
+      elActiveRoundTitle.textContent = `${r}º Semestre • Rodada ${r}`;
+      elActiveRoundAmount.textContent = `${formatBRL(sum)} de ${formatBRL(ROUND_TOTAL_VALUE)}`;
+      elActiveRoundCount.textContent = `${count} de ${BOXES_PER_ROUND} casinhas`;
+      elRoundProgressBar.style.width = `${Math.min(100, exactPercent)}%`;
+
+      const remaining = BOXES_PER_ROUND - count;
+      if (remaining === 0) {
+        elBtnDrawBox.disabled = true;
+        elBtnDrawBox.classList.add('opacity-40', 'cursor-not-allowed');
+      } else {
+        elBtnDrawBox.disabled = false;
+        elBtnDrawBox.classList.remove('opacity-40', 'cursor-not-allowed');
+      }
+    }
+
+    function renderGrid(justToggledId = null) {
+      const checkedSet = new Set(state.completed[state.activeRound] || []);
+      elBoxesGrid.innerHTML = '';
+
+      const filteredBoxes = ROUND_BOXES.filter((box) => {
+        const isChecked = checkedSet.has(box.id);
+        if (state.filter === 'pending') return !isChecked;
+        if (state.filter === 'completed') return isChecked;
+        return true;
+      });
+
+      if (filteredBoxes.length === 0) {
+        elBoxesGrid.classList.add('hidden');
+        elEmptyFilterState.classList.remove('hidden');
+        elEmptyFilterText.textContent =
+          state.filter === 'pending'
+            ? `Parabéns! Todas as 50 casinhas do ${state.activeRound}º Semestre foram concluídas.`
+            : `Nenhuma casinha concluída ainda no ${state.activeRound}º Semestre.`;
+        return;
+      }
+
+      elBoxesGrid.classList.remove('hidden');
+      elEmptyFilterState.classList.add('hidden');
+
+      filteredBoxes.forEach((box) => {
+        const isChecked = checkedSet.has(box.id);
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.dataset.id = box.id;
+        card.setAttribute('aria-pressed', isChecked ? 'true' : 'false');
+        card.setAttribute('aria-label', `Casinha de ${box.value} reais${isChecked ? ', concluída' : ''}`);
+
+        const baseClasses =
+          'relative overflow-hidden flex flex-col items-center justify-center aspect-[1.08/1] rounded-2xl border select-none transition-all duration-150 active:scale-95';
+
+        const stateClasses = isChecked
+          ? 'box-slashed bg-gradient-to-b from-[#ff007f]/35 to-[#ff2a85]/20 border-[#ff007f] text-white neon-glow'
+          : 'bg-[#1a0d14] border-[#331826] hover:bg-[#24121c] hover:border-[#ff007f]/50 text-white';
+
+        const animClass = justToggledId === box.id ? ' animate-pop' : '';
+        card.className = `${baseClasses} ${stateClasses}${animClass}`;
+
+        card.innerHTML = `
+          ${
+            isChecked
+              ? `<span class="absolute top-1.5 right-1.5 text-[#ff66b2]" aria-hidden="true">
+                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                     <polyline points="20 6 9 17 4 12"/>
+                   </svg>
+                 </span>`
+              : ''
+          }
+          <span class="text-[11px] sm:text-xs font-semibold ${isChecked ? 'text-[#ff66b2]/85' : 'text-pink-300/50'} leading-none mb-1">
+            R$
+          </span>
+          <span class="text-base sm:text-lg font-extrabold tracking-tight leading-none ${isChecked ? 'text-pink-100/75 line-through decoration-[#ff007f] decoration-2' : 'text-pink-50'}">
+            ${box.value}
+          </span>
+        `;
+
+        card.addEventListener('click', () => {
+          if (state.isDrawing) return;
+          toggleBox(box.id);
+        });
+
+        elBoxesGrid.appendChild(card);
+      });
+    }
+
+    function toggleBox(boxId, forceCheck = null) {
+      const r = state.activeRound;
+      const list = state.completed[r];
+      const idx = list.indexOf(boxId);
+      const boxObj = ROUND_BOXES[boxId];
+
+      const shouldCheck = forceCheck !== null ? forceCheck : idx === -1;
+
+      if (shouldCheck) {
+        if (idx === -1) {
+          list.push(boxId);
+          state.sessionSelected.push({ round: r, id: boxId, value: boxObj.value });
+        }
+      } else {
+        if (idx !== -1) {
+          list.splice(idx, 1);
+          state.sessionSelected = state.sessionSelected.filter(
+            (item) => !(item.round === r && item.id === boxId)
+          );
+        }
+      }
+
+      saveProgress();
+      renderHeader();
+      renderTabs();
+      renderActiveRoundSummary();
+      renderSessionBar();
+      renderGrid(boxId);
+    }
+
+    function drawRandomBox() {
+      if (state.isDrawing) return;
+
+      const checkedSet = new Set(state.completed[state.activeRound] || []);
+      const available = ROUND_BOXES.filter((b) => !checkedSet.has(b.id));
+
+      if (available.length === 0) return;
+
+      if (state.filter !== 'all') {
+        setFilter('all');
+      }
+
+      state.isDrawing = true;
+      elBtnDrawBox.classList.add('opacity-60', 'pointer-events-none');
+
+      const chosenBox = available[Math.floor(Math.random() * available.length)];
+      const cards = Array.from(elBoxesGrid.querySelectorAll('button[data-id]'));
+
+      let steps = 0;
+      const maxSteps = Math.min(12, available.length + 5);
+
+      const interval = setInterval(() => {
+        cards.forEach((c) => c.classList.remove('animate-roulette'));
+        const randomPreview = available[Math.floor(Math.random() * available.length)];
+        const targetCard = cards.find((c) => Number(c.dataset.id) === randomPreview.id);
+        if (targetCard) {
+          targetCard.classList.add('animate-roulette');
+        }
+
+        steps++;
+        if (steps >= maxSteps) {
+          clearInterval(interval);
+          cards.forEach((c) => c.classList.remove('animate-roulette'));
+          state.isDrawing = false;
+          elBtnDrawBox.classList.remove('opacity-60', 'pointer-events-none');
+
+          const finalCard = elBoxesGrid.querySelector(`button[data-id="${chosenBox.id}"]`);
+          if (finalCard) {
+            finalCard.classList.add('animate-roulette');
+            finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+
+          state.pendingDrawnBoxId = chosenBox.id;
+          elDrawModalTitle.textContent = formatBRL(chosenBox.value);
+          elDrawModalSubtitle.textContent = `${state.activeRound}º Semestre • Deseja marcar esta casinha como concluída agora?`;
+          elBtnConfirmDraw.textContent = `Marcar ${formatBRL(chosenBox.value)}`;
+          elDrawModal.classList.remove('hidden');
+          elDrawModal.classList.add('flex');
+        }
+      }, 65);
+    }
+
+    function closeDrawModal() {
+      elDrawModal.classList.add('hidden');
+      elDrawModal.classList.remove('flex');
+      const cards = Array.from(elBoxesGrid.querySelectorAll('button[data-id]'));
+      cards.forEach((c) => c.classList.remove('animate-roulette'));
+      state.pendingDrawnBoxId = null;
+    }
+
+    elBtnCancelDraw.addEventListener('click', closeDrawModal);
+    elDrawModal.addEventListener('click', (e) => {
+      if (e.target === elDrawModal) closeDrawModal();
+    });
+
+    elBtnConfirmDraw.addEventListener('click', () => {
+      if (state.pendingDrawnBoxId !== null) {
+        const chosenBox = ROUND_BOXES[state.pendingDrawnBoxId];
+        toggleBox(chosenBox.id, true);
+        showToast(`${state.activeRound}º Semestre • Casinha sorteada`, formatBRL(chosenBox.value), 'Concluída!');
+      }
+      closeDrawModal();
+    });
+
+    function setFilter(newFilter) {
+      state.filter = newFilter;
+      elFilterBtns.forEach((btn) => {
+        const isSelected = btn.dataset.filter === newFilter;
+        if (isSelected) {
+          btn.className = 'filter-btn px-2.5 py-1 rounded-lg text-xs font-bold transition-all bg-[#ff007f] text-white shadow-sm';
+        } else {
+          btn.className = 'filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold transition-all text-pink-200/70 hover:text-white';
+        }
+      });
+      renderGrid();
+    }
+
+    function renderAll() {
+      renderHeader();
+      renderTabs();
+      renderActiveRoundSummary();
+      renderSessionBar();
+      renderGrid();
+    }
+
+    // Event Listeners
+    elBtnDrawBox.addEventListener('click', drawRandomBox);
+
+    elBtnClearSession.addEventListener('click', () => {
+      const total = state.sessionSelected.reduce((acc, item) => acc + item.value, 0);
+      const count = state.sessionSelected.length;
+      state.sessionSelected = [];
+      renderSessionBar();
+      if (total > 0) {
+        showToast(`Aporte concluído (${count} ${count === 1 ? 'casinha' : 'casinhas'})`, formatBRL(total), 'Salvo!');
+      }
+    });
+
+    elFilterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (state.isDrawing) return;
+        setFilter(btn.dataset.filter);
+      });
+    });
+
+    elBtnOpenReset.addEventListener('click', () => {
+      elResetModal.classList.remove('hidden');
+      elResetModal.classList.add('flex');
+    });
+
+    function closeResetModal() {
+      elResetModal.classList.add('hidden');
+      elResetModal.classList.remove('flex');
+    }
+
+    elBtnCancelReset.addEventListener('click', closeResetModal);
+    elResetModal.addEventListener('click', (e) => {
+      if (e.target === elResetModal) closeResetModal();
+    });
+
+    elBtnConfirmReset.addEventListener('click', () => {
+      state.completed = { 1: [], 2: [] };
+      state.sessionSelected = [];
+      state.activeRound = 1;
+      saveProgress();
+      closeResetModal();
+      setFilter('all');
+      renderAll();
+      showToast('Progresso zerado', 'R$ 0 de R$ 50.000', 'Reiniciado');
+    });
+
+    // Inicialização
+    loadProgress();
+    renderAll();
+  </script>
+</body>
+</html>
