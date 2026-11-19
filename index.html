@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0d060a" />
+  <meta name="theme-color" content="#fff5f9" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Desafio 50k" />
   <title>Desafio 50k • Rosa Neon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-deep: #0d060a;
-      --bg-card: #1a0d14;
-      --bg-card-hover: #24121c;
+      --bg-light: #fff5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #ffeaf3;
       --neon-pink: #ff007f;
-      --neon-bright: #ff2a85;
-      --neon-soft: rgba(255, 0, 127, 0.16);
-      --neon-border: rgba(255, 42, 133, 0.35);
-      --text-main: #fff5f9;
-      --text-muted: #b89aa8;
+      --neon-bright: #e60073;
+      --neon-soft: rgba(255, 0, 127, 0.12);
+      --neon-border: rgba(255, 0, 127, 0.28);
+      --text-main: #240d18;
+      --text-muted: #7a5266;
     }
 
     * {
@@ -32,7 +33,7 @@
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-deep);
+      background-color: var(--bg-light);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -44,8 +45,8 @@
       width: 100%;
       max-width: 480px;
       min-height: 100vh;
-      background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.12), transparent 45%), var(--bg-deep);
-      padding: 18px 16px 110px;
+      background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.08), transparent 45%), var(--bg-light);
+      padding: 18px 16px 115px;
       position: relative;
     }
 
@@ -53,7 +54,7 @@
     .lock-screen {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at center, #1f0b16 0%, #090407 100%);
+      background: radial-gradient(circle at center, #ffffff 0%, #ffe6f1 100%);
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -75,12 +76,12 @@
       border-radius: 20px;
       background: var(--neon-soft);
       border: 1.5px solid var(--neon-pink);
-      box-shadow: 0 0 24px rgba(255, 0, 127, 0.35);
+      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 18px;
-      color: var(--neon-bright);
+      color: var(--neon-pink);
     }
 
     .lock-title {
@@ -88,6 +89,7 @@
       font-weight: 800;
       margin-bottom: 6px;
       text-align: center;
+      color: var(--text-main);
     }
 
     .lock-subtitle {
@@ -109,21 +111,21 @@
       height: 16px;
       border-radius: 50%;
       border: 2px solid var(--neon-border);
-      background: transparent;
+      background: #ffffff;
       transition: all 0.2s ease;
     }
 
     .pin-dot.filled {
       background: var(--neon-pink);
-      border-color: var(--neon-bright);
-      box-shadow: 0 0 14px var(--neon-pink);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 12px rgba(255, 0, 127, 0.45);
       transform: scale(1.15);
     }
 
     .pin-dot.error {
-      border-color: #ff3b30;
-      background: #ff3b30;
-      box-shadow: 0 0 12px #ff3b30;
+      border-color: #e11d48;
+      background: #e11d48;
+      box-shadow: 0 0 10px rgba(225, 29, 72, 0.45);
     }
 
     .keypad {
@@ -137,8 +139,8 @@
       width: 74px;
       height: 74px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 42, 133, 0.22);
-      background: rgba(26, 13, 20, 0.9);
+      border: 1px solid rgba(255, 0, 127, 0.2);
+      background: #ffffff;
       color: var(--text-main);
       font-size: 1.45rem;
       font-weight: 700;
@@ -146,14 +148,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 12px rgba(255, 0, 127, 0.08);
       transition: all 0.15s ease;
       user-select: none;
     }
 
     .key-btn:active {
       background: var(--neon-pink);
-      border-color: var(--neon-bright);
-      box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+      color: #ffffff;
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 18px rgba(255, 0, 127, 0.45);
       transform: scale(0.94);
     }
 
@@ -163,14 +167,77 @@
       color: var(--text-muted);
       border-color: transparent;
       background: transparent;
+      box-shadow: none;
     }
 
     .lock-error-msg {
       height: 20px;
       margin-top: 16px;
       font-size: 0.8rem;
-      color: #ff5c7c;
-      font-weight: 600;
+      color: #e11d48;
+      font-weight: 700;
+    }
+
+    /* BANNER DE ATALHO / INSTALAR APP */
+    .install-banner {
+      background: linear-gradient(135deg, #ffffff 0%, #ffe6f2 100%);
+      border: 1.5px solid var(--neon-pink);
+      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.14);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .install-banner.hidden {
+      display: none;
+    }
+
+    .install-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .install-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--neon-pink);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(255, 0, 127, 0.35);
+    }
+
+    .install-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .install-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .install-btn {
+      background: var(--neon-pink);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.3);
     }
 
     /* TOPO DO APP */
@@ -188,15 +255,15 @@
     }
 
     .global-pct {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 800;
-      color: var(--neon-bright);
-      text-shadow: 0 0 14px rgba(255, 0, 127, 0.55);
+      color: var(--neon-pink);
+      text-shadow: 0 0 12px rgba(255, 0, 127, 0.25);
     }
 
     .global-amounts {
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
     }
 
@@ -212,33 +279,34 @@
 
     .top-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
     .icon-pill-btn {
       background: var(--bg-card);
       border: 1px solid var(--neon-border);
       color: var(--text-main);
-      padding: 7px 11px;
+      padding: 7px 10px;
       border-radius: 12px;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      box-shadow: 0 2px 8px rgba(255, 0, 127, 0.06);
       transition: all 0.2s ease;
     }
 
     .icon-pill-btn:hover {
       border-color: var(--neon-pink);
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.25);
+      background: var(--bg-card-hover);
     }
 
     .progress-track {
       width: 100%;
-      height: 7px;
-      background: #24101a;
+      height: 8px;
+      background: #ffd6e8;
       border-radius: 999px;
       overflow: hidden;
       margin-bottom: 16px;
@@ -247,8 +315,8 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #ff007f, #ff5ca8);
-      box-shadow: 0 0 12px var(--neon-pink);
+      background: linear-gradient(90deg, #ff007f, #ff4da6);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.45);
       border-radius: 999px;
       transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
@@ -271,28 +339,33 @@
       flex: 0 0 auto;
       min-width: 82px;
       background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 0, 127, 0.14);
       border-radius: 14px;
       padding: 9px 10px;
       text-align: center;
       cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255, 0, 127, 0.05);
       transition: all 0.2s ease;
     }
 
     .month-tab.active {
       border-color: var(--neon-pink);
-      background: linear-gradient(180deg, rgba(255, 0, 127, 0.22), rgba(26, 13, 20, 0.95));
-      box-shadow: 0 0 16px rgba(255, 0, 127, 0.28);
+      background: linear-gradient(180deg, #ff007f, #e60073);
+      box-shadow: 0 4px 14px rgba(255, 0, 127, 0.32);
     }
 
     .month-tab.completed {
-      border-color: rgba(255, 42, 133, 0.5);
+      border-color: var(--neon-pink);
     }
 
     .month-tab-name {
       font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-main);
+    }
+
+    .month-tab.active .month-tab-name {
+      color: #ffffff;
     }
 
     .month-tab-pct {
@@ -303,7 +376,7 @@
     }
 
     .month-tab.active .month-tab-pct {
-      color: var(--neon-bright);
+      color: #ffe6f2;
     }
 
     /* CABEÇALHO DO MÊS ATIVO */
@@ -317,6 +390,7 @@
     .month-title {
       font-size: 1.25rem;
       font-weight: 800;
+      color: var(--text-main);
     }
 
     .month-subtitle {
@@ -350,15 +424,15 @@
 
     .btn-primary-neon {
       flex: 1;
-      background: linear-gradient(135deg, #ff007f, #d9006c);
+      background: linear-gradient(135deg, #ff007f, #e60073);
       color: #fff;
       border: none;
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 11px 12px;
       font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(255, 0, 127, 0.35);
+      box-shadow: 0 4px 14px rgba(255, 0, 127, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -373,10 +447,10 @@
     .btn-secondary-neon {
       flex: 1;
       background: var(--bg-card);
-      color: var(--neon-bright);
-      border: 1px solid var(--neon-border);
+      color: var(--neon-pink);
+      border: 1.5px solid var(--neon-border);
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 11px 12px;
       font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
@@ -400,7 +474,7 @@
 
     .filter-pill {
       background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 0, 127, 0.15);
       color: var(--text-muted);
       padding: 5px 11px;
       border-radius: 999px;
@@ -410,9 +484,9 @@
     }
 
     .filter-pill.active {
-      background: var(--neon-soft);
+      background: var(--neon-pink);
       border-color: var(--neon-pink);
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     .reset-link {
@@ -435,31 +509,32 @@
     .box-card {
       position: relative;
       background: var(--bg-card);
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      border: 1.5px solid rgba(255, 0, 127, 0.16);
       border-radius: 16px;
       padding: 16px 8px;
       text-align: center;
       cursor: pointer;
       overflow: hidden;
+      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.05);
       transition: all 0.2s ease;
       user-select: none;
     }
 
     .box-card:hover {
       background: var(--bg-card-hover);
-      border-color: var(--neon-border);
+      border-color: var(--neon-pink);
     }
 
     .box-card.highlight {
-      border-color: #fff;
-      box-shadow: 0 0 22px var(--neon-pink);
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.55);
       transform: scale(1.04);
     }
 
     .box-card.checked {
-      background: linear-gradient(145deg, rgba(255, 0, 127, 0.22), rgba(26, 13, 20, 0.92));
+      background: linear-gradient(145deg, #ffe0ef, #ffcce4);
       border-color: var(--neon-pink);
-      box-shadow: inset 0 0 14px rgba(255, 0, 127, 0.2);
+      box-shadow: 0 4px 12px rgba(255, 0, 127, 0.18);
     }
 
     /* RISCO DIAGONAL LUMINOSO */
@@ -469,9 +544,9 @@
       top: 50%;
       left: -10%;
       width: 120%;
-      height: 2.5px;
-      background: linear-gradient(90deg, transparent, #ff2a85, #fff, #ff2a85, transparent);
-      box-shadow: 0 0 10px var(--neon-pink);
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ff007f, #ff4da6, #ff007f, transparent);
+      box-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
       transform: translateY(-50%) rotate(-18deg);
       pointer-events: none;
     }
@@ -491,7 +566,7 @@
     }
 
     .box-card.checked .box-value {
-      color: rgba(255, 245, 249, 0.55);
+      color: #a33b6c;
       text-decoration: line-through;
     }
 
@@ -503,10 +578,10 @@
       transform: translateX(-50%) translateY(120%);
       width: calc(100% - 32px);
       max-width: 448px;
-      background: rgba(26, 13, 20, 0.96);
+      background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
-      border: 1px solid var(--neon-pink);
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65), 0 0 18px rgba(255, 0, 127, 0.3);
+      border: 1.5px solid var(--neon-pink);
+      box-shadow: 0 8px 26px rgba(255, 0, 127, 0.22);
       border-radius: 16px;
       padding: 12px 16px;
       display: flex;
@@ -523,12 +598,13 @@
     .session-info-label {
       font-size: 0.72rem;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
     .session-info-val {
       font-size: 0.95rem;
       font-weight: 800;
-      color: var(--neon-bright);
+      color: var(--neon-pink);
     }
 
     .session-done-btn {
@@ -546,7 +622,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.78);
+      background: rgba(36, 13, 24, 0.45);
       backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
@@ -566,9 +642,9 @@
     .modal-card {
       width: 100%;
       max-width: 380px;
-      background: #1a0d14;
-      border: 1px solid var(--neon-pink);
-      box-shadow: 0 0 32px rgba(255, 0, 127, 0.3);
+      background: #ffffff;
+      border: 1.5px solid var(--neon-pink);
+      box-shadow: 0 12px 32px rgba(255, 0, 127, 0.22);
       border-radius: 20px;
       padding: 22px;
       text-align: center;
@@ -578,19 +654,36 @@
       font-size: 1.15rem;
       font-weight: 800;
       margin-bottom: 8px;
+      color: var(--text-main);
     }
 
     .modal-desc {
       font-size: 0.84rem;
       color: var(--text-muted);
-      line-height: 1.45;
+      line-height: 1.5;
       margin-bottom: 16px;
+    }
+
+    .install-steps {
+      text-align: left;
+      background: #fff5f9;
+      border: 1px solid rgba(255, 0, 127, 0.2);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      line-height: 1.55;
+    }
+
+    .install-steps strong {
+      color: var(--neon-pink);
     }
 
     .modal-input {
       width: 100%;
-      background: #0d060a;
-      border: 1px solid var(--neon-border);
+      background: #fff5f9;
+      border: 1.5px solid var(--neon-border);
       border-radius: 12px;
       padding: 12px 14px;
       color: var(--text-main);
@@ -603,7 +696,7 @@
 
     .modal-input:focus {
       border-color: var(--neon-pink);
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.25);
     }
 
     .modal-btns {
@@ -613,7 +706,7 @@
 
     .modal-btn-cancel {
       flex: 1;
-      background: #26141e;
+      background: #ffe6f2;
       color: var(--text-muted);
       border: none;
       border-radius: 12px;
@@ -674,6 +767,24 @@
 
   <!-- CONTEÚDO PRINCIPAL DO APP -->
   <div class="app-container">
+    <!-- ATALHO PARA BAIXAR / INSTALAR O APP NA TELA INICIAL -->
+    <div id="installBanner" class="install-banner">
+      <div class="install-info">
+        <div class="install-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </div>
+        <div>
+          <div class="install-title">Instalar App no Celular</div>
+          <div class="install-desc">Crie o ícone Rosa Neon na sua tela inicial</div>
+        </div>
+      </div>
+      <button class="install-btn" onclick="triggerInstallApp()">Baixar App</button>
+    </div>
+
     <div class="top-bar">
       <div>
         <div class="global-progress-label">
@@ -689,11 +800,15 @@
       </div>
 
       <div class="top-actions">
-        <button class="icon-pill-btn" onclick="openChangePinModal()" title="Alterar senha PIN">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        <button class="icon-pill-btn" onclick="openInstallModal()" title="Atalho para instalar app">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
+          App
+        </button>
+        <button class="icon-pill-btn" onclick="openChangePinModal()" title="Alterar senha PIN">
           PIN
         </button>
         <button class="icon-pill-btn" onclick="lockNow()" title="Bloquear tela">
@@ -713,7 +828,7 @@
     <div class="month-header">
       <div>
         <h2 id="activeMonthTitle" class="month-title">Mês 1</h2>
-        <div id="activeMonthRange" class="month-subtitle">15 casinhas</div>
+        <div id="activeMonthRange" class="month-subtitle">Meta do mês: R$ 4.167</div>
       </div>
       <div class="month-stats">
         <div id="activeMonthAmount" class="month-amount">R$ 0 de R$ 4.167</div>
@@ -752,6 +867,26 @@
       <div id="sessionInfoVal" class="session-info-val">R$ 0 • 0 casinhas</div>
     </div>
     <button class="session-done-btn" onclick="clearSessionCounter()">Concluir</button>
+  </div>
+
+  <!-- MODAL ATALHO DE INSTALAÇÃO DO APP -->
+  <div id="installModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h3 class="modal-title">Criar Atalho / Instalar App</h3>
+      <p class="modal-desc">Deixe o <strong>Desafio 50k Rosa Neon</strong> na tela inicial do seu celular como um aplicativo nativo:</p>
+      <div class="install-steps">
+        <strong>Android (Chrome / Samsung):</strong><br/>
+        1. Toque nos <strong>3 pontinhos (⋮)</strong> no canto do navegador.<br/>
+        2. Selecione <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar aplicativo"</strong>.<br/><br/>
+        <strong>iPhone (Safari):</strong><br/>
+        1. Toque no botão <strong>Compartilhar (□↑)</strong> na barra inferior.<br/>
+        2. Role e toque em <strong>"Adicionar à Tela de Início"</strong>.
+      </div>
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="downloadHtmlBackup()">Salvar Cópia (.html)</button>
+        <button class="modal-btn-confirm" onclick="closeModal('installModal')">Entendi</button>
+      </div>
+    </div>
   </div>
 
   <!-- MODAL APORTE EXTRA COM ABATIMENTO EM CASCATA -->
@@ -820,6 +955,61 @@
     let sessionAmount = 0;
     let sessionCount = 0;
     let pendingDrawBoxIndex = null;
+    let deferredInstallPrompt = null;
+
+    // Ícone e Manifesto dinâmico para permitir instalação como App PWA
+    (function setupPwaShortcut() {
+      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#ff007f"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="190" fill="#ffffff">50K</text></svg>`;
+      const iconUrl = 'data:image/svg+xml;base64,' + btoa(iconSvg);
+
+      const appleIcon = document.createElement('link');
+      appleIcon.rel = 'apple-touch-icon';
+      appleIcon.href = iconUrl;
+      document.head.appendChild(appleIcon);
+
+      const manifest = {
+        name: 'Desafio 50k • Rosa Neon',
+        short_name: 'Desafio 50k',
+        start_url: '.',
+        display: 'standalone',
+        background_color: '#fff5f9',
+        theme_color: '#ff007f',
+        icons: [{ src: iconUrl, sizes: '512x512', type: 'image/svg+xml' }]
+      };
+      const manifestBlob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+      const manifestLink = document.createElement('link');
+      manifestLink.rel = 'manifest';
+      manifestLink.href = URL.createObjectURL(manifestBlob);
+      document.head.appendChild(manifestLink);
+    })();
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+    });
+
+    function triggerInstallApp() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then(() => {
+          deferredInstallPrompt = null;
+        });
+      } else {
+        openInstallModal();
+      }
+    }
+
+    function openInstallModal() {
+      document.getElementById('installModal').classList.add('open');
+    }
+
+    function downloadHtmlBackup() {
+      const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'desafio-50k-rosa-neon.html';
+      a.click();
+    }
 
     const MONTH_NAMES = [
       'Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6',
