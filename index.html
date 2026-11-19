@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Desafio de Poupança 50k • Rosa Neon</title>
+  <title>Desafio de Poupança 50k • 12 Meses</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     * {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
     }
 
     body {
@@ -20,17 +24,26 @@
       overflow-x: hidden;
     }
 
-    /* Brilhos Rosa Neon */
+    /* Ocultar barra de rolagem horizontal das abas mantendo scroll fluido */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Efeitos Rosa Neon */
     .neon-glow {
-      box-shadow: 0 0 16px rgba(255, 0, 127, 0.35), inset 0 0 8px rgba(255, 42, 133, 0.15);
+      box-shadow: 0 0 18px rgba(255, 0, 127, 0.35), inset 0 0 8px rgba(255, 42, 133, 0.14);
     }
 
     .neon-glow-strong {
-      box-shadow: 0 0 24px rgba(255, 0, 127, 0.6), 0 0 8px rgba(255, 102, 178, 0.4);
+      box-shadow: 0 0 26px rgba(255, 0, 127, 0.65), 0 0 10px rgba(255, 102, 178, 0.45);
     }
 
     .neon-text-glow {
-      text-shadow: 0 0 12px rgba(255, 0, 127, 0.55);
+      text-shadow: 0 0 14px rgba(255, 0, 127, 0.7);
     }
 
     /* Corte diagonal luminoso rosa neon nas casinhas concluídas */
@@ -38,8 +51,8 @@
       content: '';
       position: absolute;
       top: 50%;
-      left: 10%;
-      right: 10%;
+      left: 8%;
+      right: 8%;
       height: 2.5px;
       background: linear-gradient(90deg, transparent, #ff007f, #ff85c2, #ff007f, transparent);
       box-shadow: 0 0 8px rgba(255, 0, 127, 0.95);
@@ -84,24 +97,39 @@
   <!-- Container Principal Responsivo -->
   <div class="max-w-lg mx-auto px-3.5 sm:px-5 pt-4 pb-28">
 
-    <!-- 1. Cabeçalho Global Discreto -->
+    <!-- 1. Cabeçalho & Progresso Global -->
     <header class="mb-3.5">
-      <div class="flex items-center justify-between gap-2">
-        <div class="flex items-baseline gap-2 min-w-0">
-          <span id="global-percent" class="text-lg sm:text-xl font-black text-[#ff007f] neon-text-glow tracking-tight">
-            0,00%
-          </span>
-          <span class="text-pink-400/50 text-xs">•</span>
-          <h1 id="global-amount" class="text-sm sm:text-base font-extrabold text-white tracking-tight truncate">
-            R$ 0 de R$ 50.000
-          </h1>
+      <div class="flex items-start justify-between gap-2">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-base sm:text-lg font-black text-white tracking-tight">
+              Desafio 50k • 12 Meses
+            </h1>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#1a0d14] border border-[#331826] text-[10px] sm:text-[11px] font-semibold text-[#ff66b2]">
+              <svg class="w-3 h-3 text-[#ff007f] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                <path d="m9 15 2 2 4-4" />
+              </svg>
+              <span id="save-status-text">Salvo no dispositivo</span>
+            </span>
+          </div>
+
+          <div class="flex items-baseline gap-2 mt-1">
+            <span id="global-percent" class="font-mono-num text-lg sm:text-xl font-black text-[#ff007f] neon-text-glow tracking-tight">
+              0,0%
+            </span>
+            <span class="text-pink-400/50 text-xs">•</span>
+            <p id="global-amount" class="font-mono-num text-xs sm:text-sm font-extrabold text-white tracking-tight truncate">
+              R$ 0 de R$ 50.000
+            </p>
+          </div>
         </div>
 
         <!-- Botão Zerar Progresso -->
         <button
           id="btn-open-reset"
           type="button"
-          title="Zerar progresso do desafio"
+          title="Zerar desafio para R$ 50.000 originais"
           class="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-[#1a0d14] hover:bg-[#26121d] border border-[#331826] text-pink-200/75 hover:text-[#ff66b2] text-xs font-semibold transition-all active:scale-95"
         >
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -112,72 +140,92 @@
         </button>
       </div>
 
-      <!-- Status de Salvamento Automático -->
-      <div class="flex items-center gap-1.5 mt-1">
-        <svg class="w-3.5 h-3.5 text-[#ff007f] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
-          <path d="m9 15 2 2 4-4" />
-        </svg>
-        <span id="save-status-text" class="text-[11px] sm:text-xs font-medium text-[#ff66b2]">
-          Salvo no dispositivo
-        </span>
-      </div>
-
       <!-- Barra de Progresso Global -->
-      <div class="w-full h-1.5 bg-[#1a0d14] rounded-full overflow-hidden mt-2 border border-[#331826]/70">
+      <div class="w-full h-2 bg-[#1a0d14] rounded-full overflow-hidden mt-2 border border-[#331826]/80">
         <div
           id="global-progress-bar"
           class="h-full bg-gradient-to-r from-[#ff007f] via-[#ff2a85] to-[#ff66b2] rounded-full transition-all duration-300 ease-out"
           style="width: 0%"
         ></div>
       </div>
+
+      <!-- Sub-info Global: Restante & Botão Principal de Aporte Extra -->
+      <div class="mt-3 flex items-center justify-between gap-2 p-2.5 rounded-2xl bg-[#1a0d14] border border-[#331826]">
+        <div class="min-w-0">
+          <p class="text-[10px] uppercase tracking-wider font-bold text-pink-300/60">Falta para R$ 50.000</p>
+          <p id="global-remaining" class="font-mono-num text-sm sm:text-base font-extrabold text-white truncate">
+            R$ 50.000,00
+          </p>
+        </div>
+
+        <button
+          id="btn-open-extra"
+          type="button"
+          class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#ff2a85] hover:from-[#ff1a8c] hover:to-[#ff4797] text-white text-xs sm:text-sm font-extrabold neon-glow transition-all active:scale-95"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14" />
+            <path d="M5 12h14" />
+          </svg>
+          <span>Lançar Aporte Extra</span>
+        </button>
+      </div>
     </header>
 
-    <!-- 2. Abas Semestrais (1º Semestre e 2º Semestre) -->
-    <nav aria-label="Rodadas Semestrais" class="grid grid-cols-2 gap-2.5 mb-3.5" id="rounds-tabs">
-      <!-- Renderizado dinamicamente via JS -->
+    <!-- 2. Abas Horizontais por Mês (Mês 1 a Mês 12) -->
+    <nav
+      aria-label="Meses do desafio"
+      id="months-tabs"
+      class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 mb-3 scroll-smooth"
+    >
+      <!-- Renderizado via JS -->
     </nav>
 
-    <!-- 3. Resumo Compacto da Rodada Ativa -->
+    <!-- 3. Resumo do Mês Ativo -->
     <section class="mb-3 pb-2.5 border-b border-[#331826]">
       <div class="flex items-center justify-between gap-2">
         <div>
-          <h2 id="active-round-title" class="text-base sm:text-lg font-extrabold text-white tracking-tight leading-tight">
-            1º Semestre • Rodada 1
-          </h2>
-          <p class="text-[11px] sm:text-xs text-pink-200/60 font-medium">
-            Casinhas de <span class="text-[#ff66b2] font-semibold">R$ 20 a R$ 980</span>
+          <div class="flex items-center gap-2">
+            <h2 id="active-month-title" class="text-base sm:text-lg font-extrabold text-white tracking-tight leading-tight">
+              Mês 1
+            </h2>
+            <span id="active-month-badge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ff007f]/20 text-[#ff66b2] border border-[#ff007f]/40">
+              Abatido
+            </span>
+          </div>
+          <p id="active-month-range" class="text-[11px] sm:text-xs text-pink-200/60 font-medium mt-0.5">
+            15 casinhas • Meta atual do mês
           </p>
         </div>
 
         <div class="text-right">
-          <div id="active-round-amount" class="text-sm sm:text-base font-extrabold text-white tracking-tight leading-tight">
-            R$ 0 de R$ 25.000
+          <div id="active-month-amount" class="font-mono-num text-sm sm:text-base font-extrabold text-white tracking-tight leading-tight">
+            R$ 0 de R$ 4.160
           </div>
-          <p id="active-round-count" class="text-[11px] sm:text-xs text-pink-200/60 font-medium">
-            0 de 50 casinhas
+          <p id="active-month-count" class="text-[11px] sm:text-xs text-pink-200/60 font-medium mt-0.5">
+            0 de 15 casinhas
           </p>
         </div>
       </div>
 
-      <!-- Barra de Progresso da Rodada -->
-      <div class="w-full h-1 bg-[#1a0d14] rounded-full overflow-hidden mt-2">
+      <!-- Barra de Progresso do Mês -->
+      <div class="w-full h-1.5 bg-[#1a0d14] rounded-full overflow-hidden mt-2">
         <div
-          id="round-progress-bar"
+          id="month-progress-bar"
           class="h-full bg-gradient-to-r from-[#ff007f] to-[#ff66b2] rounded-full transition-all duration-300 ease-out"
           style="width: 0%"
         ></div>
       </div>
     </section>
 
-    <!-- 4. Barra de Ferramentas: Sortear Casinha + Filtros Rápidos -->
+    <!-- 4. Barra de Ações Rápidas: Sortear Casinha + Filtros -->
     <section class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
       <button
         id="btn-draw-box"
         type="button"
-        class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#ff2a85] hover:from-[#ff1a8c] hover:to-[#ff4797] text-white text-xs sm:text-sm font-extrabold neon-glow transition-all active:scale-95"
+        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#1a0d14] hover:bg-[#26121d] border border-[#ff007f]/50 text-[#ff66b2] hover:text-white text-xs sm:text-sm font-bold transition-all active:scale-95"
       >
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-4 h-4 text-[#ff007f]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
           <rect width="12" height="12" x="2" y="10" rx="2" ry="2" />
           <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" />
           <path d="M6 18h.01" />
@@ -214,12 +262,12 @@
       </div>
     </section>
 
-    <!-- 5. Grade Principal de 50 Casinhas (5 colunas no mobile) -->
+    <!-- 5. Grade Principal de 15 Casinhas do Mês (5 colunas x 3 linhas) -->
     <main>
       <div
         id="boxes-grid"
         class="grid grid-cols-5 gap-2 sm:gap-2.5"
-        aria-label="Grade de 50 casinhas da rodada"
+        aria-label="Grade de 15 casinhas do mês"
       >
         <!-- Gerado via JavaScript -->
       </div>
@@ -234,7 +282,7 @@
 
   </div>
 
-  <!-- Barra Flutuante Discreta de Aporte Atual da Sessão -->
+  <!-- 6. Barra Flutuante de Aporte Atual da Sessão -->
   <div
     id="session-cart-bar"
     class="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 opacity-0 translate-y-4 pointer-events-none transition-all duration-300 w-[94%] max-w-lg"
@@ -243,7 +291,7 @@
       <div class="flex items-center gap-2 min-w-0">
         <span class="w-2 h-2 rounded-full bg-[#ff007f] animate-ping shrink-0"></span>
         <p class="text-xs sm:text-sm font-bold text-white truncate">
-          Aporte atual: <span id="session-cart-amount" class="text-[#ff66b2] font-black">R$ 0</span>
+          Aporte atual: <span id="session-cart-amount" class="font-mono-num text-[#ff66b2] font-black">R$ 0</span>
           <span id="session-cart-count" class="text-pink-200/75 font-medium text-xs">• 0 casinhas</span>
         </p>
       </div>
@@ -263,16 +311,106 @@
     class="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 pointer-events-none opacity-0 translate-y-3 transition-all duration-300 w-[92%] max-w-sm"
   >
     <div class="bg-[#1f0e17] border border-[#ff007f] text-white px-4 py-3 rounded-2xl neon-glow flex items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2.5 min-w-0">
         <span class="w-2.5 h-2.5 rounded-full bg-[#ff007f] animate-pulse shrink-0"></span>
-        <div>
-          <p id="toast-title" class="text-xs text-pink-200/75 font-medium">Aporte salvo</p>
-          <p id="toast-value" class="text-sm font-extrabold text-white">R$ 0</p>
+        <div class="min-w-0">
+          <p id="toast-title" class="text-xs text-pink-200/75 font-medium truncate">Aporte salvo</p>
+          <p id="toast-value" class="font-mono-num text-sm font-extrabold text-white truncate">R$ 0</p>
         </div>
       </div>
-      <span id="toast-badge" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#ff007f]/25 text-[#ff66b2]">
+      <span id="toast-badge" class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-lg bg-[#ff007f]/25 text-[#ff66b2]">
         Concluído
       </span>
+    </div>
+  </div>
+
+  <!-- Modal: Lançar Aporte Extra com Abatimento em Cascata -->
+  <div
+    id="extra-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="extra-modal-title"
+  >
+    <div class="w-full max-w-sm rounded-3xl bg-[#1a0d14] border-2 border-[#ff007f] p-5 sm:p-6 neon-glow-strong">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-[#ff66b2]">Abatimento em Cascata</span>
+        <span id="extra-modal-month-tag" class="text-xs font-bold px-2 py-0.5 rounded-lg bg-[#26121d] text-pink-200 border border-[#3d1d2e]">
+          Mês 1
+        </span>
+      </div>
+
+      <h3 id="extra-modal-title" class="text-lg font-extrabold text-white mb-1">
+        Quanto você guardou?
+      </h3>
+      <p class="text-xs text-pink-200/70 leading-relaxed mb-4">
+        O valor quita as casinhas pendentes do <strong id="extra-modal-month-name" class="text-white">Mês 1</strong> e o excedente abate automaticamente o valor das casinhas dos próximos meses.
+      </p>
+
+      <!-- Campo de Valor -->
+      <div class="relative mb-3">
+        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono-num text-base font-extrabold text-[#ff66b2]">
+          R$
+        </span>
+        <input
+          id="extra-amount-input"
+          type="number"
+          inputmode="decimal"
+          min="1"
+          step="any"
+          placeholder="Ex: 6000"
+          class="font-mono-num w-full pl-11 pr-4 py-3 rounded-2xl bg-[#0d060a] border-2 border-[#331826] focus:border-[#ff007f] focus:outline-none text-white text-lg font-black placeholder:text-pink-300/25 transition-colors"
+        />
+      </div>
+
+      <!-- Atalhos Rápidos de Valor -->
+      <div class="grid grid-cols-4 gap-1.5 mb-4">
+        <button type="button" data-quick="1000" class="quick-extra-btn py-1.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#3d1d2e] text-xs font-bold text-pink-100 transition-colors">
+          +1.000
+        </button>
+        <button type="button" data-quick="2500" class="quick-extra-btn py-1.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#3d1d2e] text-xs font-bold text-pink-100 transition-colors">
+          +2.500
+        </button>
+        <button type="button" data-quick="5000" class="quick-extra-btn py-1.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#3d1d2e] text-xs font-bold text-pink-100 transition-colors">
+          +5.000
+        </button>
+        <button type="button" data-quick="6000" class="quick-extra-btn py-1.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#ff007f]/40 text-xs font-bold text-[#ff66b2] transition-colors">
+          +6.000
+        </button>
+      </div>
+
+      <!-- Prévia Dinâmica do Impacto -->
+      <div id="extra-preview-box" class="mb-4 p-3 rounded-2xl bg-[#0d060a]/90 border border-[#331826] text-xs space-y-1">
+        <div class="flex justify-between">
+          <span class="text-pink-200/65">Pendente neste mês:</span>
+          <span id="preview-month-pending" class="font-mono-num font-bold text-white">R$ 0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-pink-200/65">Excedente abatido à frente:</span>
+          <span id="preview-cascade-surplus" class="font-mono-num font-bold text-[#ff66b2]">R$ 0</span>
+        </div>
+      </div>
+
+      <p id="extra-error-msg" class="hidden text-xs font-semibold text-[#ff66b2] mb-3 text-center">
+        Digite um valor válido maior que zero.
+      </p>
+
+      <div class="grid grid-cols-2 gap-2.5">
+        <button
+          id="btn-cancel-extra"
+          type="button"
+          class="px-4 py-2.5 rounded-xl bg-[#26121d] hover:bg-[#331826] border border-[#3d1d2e] text-pink-100 text-sm font-semibold transition-colors"
+        >
+          Cancelar
+        </button>
+        <button
+          id="btn-confirm-extra"
+          type="button"
+          class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#ff007f] to-[#ff2a85] hover:from-[#ff1a8c] hover:to-[#ff4797] text-white text-sm font-extrabold transition-all neon-glow"
+        >
+          Abater Valor
+        </button>
+      </div>
     </div>
   </div>
 
@@ -292,7 +430,7 @@
         </svg>
       </div>
       <p class="text-xs uppercase tracking-widest font-bold text-[#ff66b2] mb-1">Casinha Sorteada</p>
-      <h3 id="draw-modal-title" class="text-3xl font-black text-white neon-text-glow mb-2">R$ 0</h3>
+      <h3 id="draw-modal-title" class="font-mono-num text-3xl font-black text-white neon-text-glow mb-2">R$ 0</h3>
       <p id="draw-modal-subtitle" class="text-xs sm:text-sm text-pink-200/75 leading-relaxed mb-5">
         Deseja marcar esta casinha como concluída agora?
       </p>
@@ -315,7 +453,7 @@
     </div>
   </div>
 
-  <!-- Modal de Confirmação para Zerar Progresso -->
+  <!-- Modal de Opções para Zerar Progresso -->
   <div
     id="reset-modal"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4"
@@ -332,10 +470,10 @@
         </svg>
       </div>
       <h3 id="reset-modal-title" class="text-lg font-extrabold text-white mb-1.5">
-        Zerar todo o progresso?
+        Reiniciar Desafio 50k?
       </h3>
       <p class="text-sm text-pink-200/70 leading-relaxed mb-5">
-        Todas as casinhas marcadas no <strong class="text-white">1º Semestre</strong> e <strong class="text-white">2º Semestre</strong> serão desmarcadas. Esta ação não pode ser desfeita.
+        Isso restaurará todas as casinhas dos <strong class="text-white">12 meses</strong> aos valores originais somando <strong class="text-white">R$ 50.000,00</strong> e desmarcará todo o progresso.
       </p>
       <div class="grid grid-cols-2 gap-2.5">
         <button
@@ -346,11 +484,11 @@
           Cancelar
         </button>
         <button
-          id="btn-confirm-reset"
+          id="btn-reset-all"
           type="button"
-          class="px-4 py-2.5 rounded-xl bg-[#ff007f] hover:bg-[#ff2a85] text-white text-sm font-bold transition-colors neon-glow"
+          class="px-4 py-2.5 rounded-xl bg-[#ff007f] hover:bg-[#ff2a85] text-white text-sm font-extrabold transition-colors neon-glow"
         >
-          Sim, zerar tudo
+          Sim, Zerar
         </button>
       </div>
     </div>
@@ -358,258 +496,502 @@
 
   <script>
     /**
-     * Matemática Exata Semestral para R$ 50.000,00:
-     * - 2 Rodadas Semestrais (1º Semestre e 2º Semestre) de 50 casinhas cada
-     * - Valores de R$ 20 a R$ 980 (progressão de R$ 20 em R$ 20 = 49 casinhas somando R$ 24.500)
-     *   + 1 casinha extra de R$ 500 ordenada = 50 casinhas somando exatos R$ 25.000,00 por semestre
-     * - Total Global: 2 × R$ 25.000,00 = R$ 50.000,00
+     * Desafio de Poupança 50k • 12 Meses com Abatimento Inteligente em Cascata
+     *
+     * Distribuição Original Exata (R$ 50.000,00):
+     * - 8 meses com soma de R$ 4.160,00 cada (8 x 4.160 = R$ 33.280,00)
+     * - 4 meses com soma de R$ 4.180,00 cada (4 x 4.180 = R$ 16.720,00)
+     * - Total Global exato = R$ 50.000,00 | Média = R$ 4.166,67/mês
      */
-    const STORAGE_KEY = 'desafio_poupanca_50k_semestral_rosa_neon_v3';
-    const TOTAL_ROUNDS = 2;
-    const BOXES_PER_ROUND = 50;
-    const ROUND_TOTAL_VALUE = 25000;
-    const GLOBAL_TOTAL_VALUE = 50000;
+    const STORAGE_KEY = 'desafio_poupanca_50k_12meses_cascata_v1';
+    const GLOBAL_GOAL = 50000;
+    const TOTAL_MONTHS = 12;
+    const BOXES_PER_MONTH = 15;
 
-    // Gera as 50 casinhas ordenadas somando exatamente R$ 25.000
-    const ROUND_BOXES = (() => {
-      const values = [];
-      for (let v = 20; v <= 980; v += 20) {
-        values.push(v);
-        if (v === 500) {
-          values.push(500); // Casinha extra de R$ 500 para fechar R$ 25.000 exatos
-        }
+    // Padrão de 15 casinhas múltiplas de R$ 10/R$ 20 somando R$ 4.160
+    const BASE_4160 = [140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 380, 400]; // Soma = 4.160
+    // Padrão de 15 casinhas múltiplas de R$ 10/R$ 20 somando R$ 4.180 (nos meses 3, 6, 9, 12)
+    const BASE_4180 = [140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400, 400]; // Soma = 4.180
+
+    function createInitialMonthsData() {
+      const months = {};
+      for (let m = 1; m <= TOTAL_MONTHS; m++) {
+        const template = m % 3 === 0 ? BASE_4180 : BASE_4160;
+        months[m] = template.map((val, idx) => ({
+          id: idx,
+          value: val,
+          initialValue: val,
+          completed: false,
+        }));
       }
-      return values.map((value, index) => ({
-        id: index,
-        value,
-      }));
-    })();
+      return months;
+    }
 
     // Estado da Aplicação
     let state = {
-      activeRound: 1, // 1 (1º Semestre) ou 2 (2º Semestre)
-      filter: 'all',  // 'all' | 'pending' | 'completed'
+      activeMonth: 1,
+      filter: 'all', // 'all' | 'pending' | 'completed'
+      months: createInitialMonthsData(),
+      sessionSelected: [], // [{ month, id, value }]
       isDrawing: false,
       pendingDrawnBoxId: null,
-      completed: {
-        1: [],
-        2: [],
-      },
-      // Contador discreto da sessão atual ("Aporte atual")
-      sessionSelected: [], // [{ round, id, value }]
     };
 
-    // Referências do DOM
+    // Referências DOM
     const elGlobalPercent = document.getElementById('global-percent');
     const elGlobalAmount = document.getElementById('global-amount');
+    const elGlobalRemaining = document.getElementById('global-remaining');
     const elGlobalProgressBar = document.getElementById('global-progress-bar');
     const elSaveStatusText = document.getElementById('save-status-text');
-
-    const elRoundsTabs = document.getElementById('rounds-tabs');
-    const elActiveRoundTitle = document.getElementById('active-round-title');
-    const elActiveRoundAmount = document.getElementById('active-round-amount');
-    const elActiveRoundCount = document.getElementById('active-round-count');
-    const elRoundProgressBar = document.getElementById('round-progress-bar');
-
+    const elMonthsTabs = document.getElementById('months-tabs');
+    const elActiveMonthTitle = document.getElementById('active-month-title');
+    const elActiveMonthBadge = document.getElementById('active-month-badge');
+    const elActiveMonthRange = document.getElementById('active-month-range');
+    const elActiveMonthAmount = document.getElementById('active-month-amount');
+    const elActiveMonthCount = document.getElementById('active-month-count');
+    const elMonthProgressBar = document.getElementById('month-progress-bar');
     const elBoxesGrid = document.getElementById('boxes-grid');
     const elEmptyFilterState = document.getElementById('empty-filter-state');
     const elEmptyFilterText = document.getElementById('empty-filter-text');
-
     const elBtnDrawBox = document.getElementById('btn-draw-box');
     const elFilterBtns = document.querySelectorAll('.filter-btn');
 
-    // Barra Flutuante da Sessão Atual
+    // Barra flutuante de sessão
     const elSessionCartBar = document.getElementById('session-cart-bar');
     const elSessionCartAmount = document.getElementById('session-cart-amount');
     const elSessionCartCount = document.getElementById('session-cart-count');
     const elBtnClearSession = document.getElementById('btn-clear-session');
 
-    // Modais e Toast
-    const elResetModal = document.getElementById('reset-modal');
-    const elBtnOpenReset = document.getElementById('btn-open-reset');
-    const elBtnCancelReset = document.getElementById('btn-cancel-reset');
-    const elBtnConfirmReset = document.getElementById('btn-confirm-reset');
+    // Modal Aporte Extra
+    const elBtnOpenExtra = document.getElementById('btn-open-extra');
+    const elExtraModal = document.getElementById('extra-modal');
+    const elExtraModalMonthTag = document.getElementById('extra-modal-month-tag');
+    const elExtraModalMonthName = document.getElementById('extra-modal-month-name');
+    const elExtraAmountInput = document.getElementById('extra-amount-input');
+    const elPreviewMonthPending = document.getElementById('preview-month-pending');
+    const elPreviewCascadeSurplus = document.getElementById('preview-cascade-surplus');
+    const elExtraErrorMsg = document.getElementById('extra-error-msg');
+    const elBtnCancelExtra = document.getElementById('btn-cancel-extra');
+    const elBtnConfirmExtra = document.getElementById('btn-confirm-extra');
+    const elQuickExtraBtns = document.querySelectorAll('.quick-extra-btn');
 
+    // Modal Sorteio & Reset & Toast
     const elDrawModal = document.getElementById('draw-modal');
     const elDrawModalTitle = document.getElementById('draw-modal-title');
     const elDrawModalSubtitle = document.getElementById('draw-modal-subtitle');
     const elBtnCancelDraw = document.getElementById('btn-cancel-draw');
     const elBtnConfirmDraw = document.getElementById('btn-confirm-draw');
 
+    const elBtnOpenReset = document.getElementById('btn-open-reset');
+    const elResetModal = document.getElementById('reset-modal');
+    const elBtnCancelReset = document.getElementById('btn-cancel-reset');
+    const elBtnResetAll = document.getElementById('btn-reset-all');
+
     const elToastBanner = document.getElementById('toast-banner');
     const elToastTitle = document.getElementById('toast-title');
     const elToastValue = document.getElementById('toast-value');
     const elToastBadge = document.getElementById('toast-badge');
     let toastTimeout = null;
+    let saveIndicatorTimeout = null;
 
-    function formatBRL(value) {
-      return 'R$ ' + value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
-
-    function formatGlobalPercent(percent) {
-      return percent.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
-    }
-
-    function getRoundStats(roundNumber) {
-      const checkedIds = state.completed[roundNumber] || [];
-      const sum = checkedIds.reduce((acc, id) => acc + (ROUND_BOXES[id]?.value || 0), 0);
-      const count = checkedIds.length;
-      const percent = Math.round((sum / ROUND_TOTAL_VALUE) * 100);
-      return { sum, count, percent };
-    }
-
-    function renderHeader() {
-      let totalSaved = 0;
-      for (let r = 1; r <= TOTAL_ROUNDS; r++) {
-        totalSaved += getRoundStats(r).sum;
+    // Formatações Monetárias
+    function formatBRL(value, showDecimals = false) {
+      const num = Number(value) || 0;
+      if (showDecimals || num % 1 !== 0) {
+        return 'R$ ' + num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
-      const globalPercent = (totalSaved / GLOBAL_TOTAL_VALUE) * 100;
-      elGlobalPercent.textContent = formatGlobalPercent(globalPercent);
-      elGlobalAmount.textContent = `${formatBRL(totalSaved)} de ${formatBRL(GLOBAL_TOTAL_VALUE)}`;
-      elGlobalProgressBar.style.width = `${Math.min(100, globalPercent)}%`;
+      return 'R$ ' + Math.round(num).toLocaleString('pt-BR');
     }
 
-    function renderSessionBar() {
-      const count = state.sessionSelected.length;
-      if (count === 0) {
-        elSessionCartBar.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-        elSessionCartBar.classList.remove('opacity-100', 'translate-y-0');
-        return;
+    function formatBoxNumber(value) {
+      const num = Number(value) || 0;
+      if (num % 1 !== 0) {
+        return num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
-
-      const totalSession = state.sessionSelected.reduce((acc, item) => acc + item.value, 0);
-      elSessionCartAmount.textContent = formatBRL(totalSession);
-      elSessionCartCount.textContent = `• ${count} ${count === 1 ? 'casinha' : 'casinhas'}`;
-
-      elSessionCartBar.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-      elSessionCartBar.classList.add('opacity-100', 'translate-y-0');
+      return Math.round(num).toLocaleString('pt-BR');
     }
 
-    function showToast(title, valueText, badgeText) {
-      if (toastTimeout) clearTimeout(toastTimeout);
-      elToastTitle.textContent = title;
-      elToastValue.textContent = valueText;
-      elToastBadge.textContent = badgeText;
-
-      elToastBanner.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
-      elToastBanner.classList.add('opacity-100', 'translate-y-0');
-
-      toastTimeout = setTimeout(() => {
-        elToastBanner.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
-        elToastBanner.classList.remove('opacity-100', 'translate-y-0');
-      }, 2600);
-    }
-
+    // Persistência LocalStorage
     function loadProgress() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed && parsed.completed) {
-            for (let r = 1; r <= TOTAL_ROUNDS; r++) {
-              if (Array.isArray(parsed.completed[r])) {
-                state.completed[r] = parsed.completed[r].filter(
-                  (id) => Number.isInteger(id) && id >= 0 && id < BOXES_PER_ROUND
-                );
-              }
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+
+        if (parsed && parsed.months) {
+          for (let m = 1; m <= TOTAL_MONTHS; m++) {
+            const savedList = parsed.months[m];
+            if (Array.isArray(savedList) && savedList.length === BOXES_PER_MONTH) {
+              state.months[m] = savedList.map((item, idx) => ({
+                id: idx,
+                value: Number(item.value) >= 0 ? Number(item.value) : state.months[m][idx].initialValue,
+                initialValue: Number(item.initialValue) || state.months[m][idx].initialValue,
+                completed: Boolean(item.completed),
+              }));
             }
           }
-          if (parsed && parsed.activeRound >= 1 && parsed.activeRound <= TOTAL_ROUNDS) {
-            state.activeRound = parsed.activeRound;
-          }
+        }
+
+        if (parsed && parsed.activeMonth >= 1 && parsed.activeMonth <= TOTAL_MONTHS) {
+          state.activeMonth = parsed.activeMonth;
         }
       } catch (err) {
-        console.error('Erro ao carregar progresso salvo:', err);
+        console.warn('Erro ao carregar dados salvos:', err);
       }
     }
 
     function saveProgress() {
       try {
         const payload = {
-          activeRound: state.activeRound,
-          completed: state.completed,
+          activeMonth: state.activeMonth,
+          months: state.months,
           updatedAt: new Date().toISOString(),
         };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
 
         elSaveStatusText.textContent = 'Salvando...';
-        setTimeout(() => {
+        clearTimeout(saveIndicatorTimeout);
+        saveIndicatorTimeout = setTimeout(() => {
           elSaveStatusText.textContent = 'Salvo no dispositivo';
-        }, 350);
+        }, 450);
       } catch (err) {
-        console.error('Erro ao salvar progresso:', err);
-        elSaveStatusText.textContent = 'Erro ao salvar localmente';
+        elSaveStatusText.textContent = 'Modo offline';
       }
     }
 
-    function renderTabs() {
-      elRoundsTabs.innerHTML = '';
+    // Cálculos de Estatísticas
+    function getMonthStats(monthNum) {
+      const boxes = state.months[monthNum] || [];
+      let completedSum = 0;
+      let pendingSum = 0;
+      let totalMonthGoal = 0;
+      let initialMonthGoal = 0;
+      let completedCount = 0;
 
-      for (let r = 1; r <= TOTAL_ROUNDS; r++) {
-        const isActive = state.activeRound === r;
-        const { sum, count, percent } = getRoundStats(r);
+      boxes.forEach((b) => {
+        totalMonthGoal += b.value;
+        initialMonthGoal += b.initialValue;
+        if (b.completed) {
+          completedSum += b.value;
+          completedCount++;
+        } else {
+          pendingSum += b.value;
+        }
+      });
+
+      const percent = totalMonthGoal > 0 ? Math.round((completedSum / totalMonthGoal) * 100) : 100;
+      const wasReduced = totalMonthGoal < initialMonthGoal - 0.01;
+
+      return {
+        completedSum: Math.round(completedSum * 100) / 100,
+        pendingSum: Math.round(pendingSum * 100) / 100,
+        totalMonthGoal: Math.round(totalMonthGoal * 100) / 100,
+        initialMonthGoal,
+        completedCount,
+        percent,
+        wasReduced,
+      };
+    }
+
+    function getGlobalStats() {
+      let totalCompleted = 0;
+      let totalPending = 0;
+
+      for (let m = 1; m <= TOTAL_MONTHS; m++) {
+        const stats = getMonthStats(m);
+        totalCompleted += stats.completedSum;
+        totalPending += stats.pendingSum;
+      }
+
+      totalCompleted = Math.round(totalCompleted * 100) / 100;
+      totalPending = Math.max(0, Math.round((GLOBAL_GOAL - totalCompleted) * 100) / 100);
+      const exactPercent = Math.min(100, (totalCompleted / GLOBAL_GOAL) * 100);
+
+      return { totalCompleted, totalPending, exactPercent };
+    }
+
+    // Toast de Feedback
+    function showToast(title, valueText, badgeText) {
+      elToastTitle.textContent = title;
+      elToastValue.textContent = valueText;
+      elToastBadge.textContent = badgeText;
+
+      elToastBanner.classList.remove('opacity-0', 'translate-y-3');
+      elToastBanner.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        elToastBanner.classList.add('opacity-0', 'translate-y-3');
+        elToastBanner.classList.remove('opacity-100', 'translate-y-0');
+      }, 2800);
+    }
+
+    /**
+     * LÓGICA DO ABATIMENTO INTELIGENTE EM CASCATA:
+     * 1. Quita primeiro as casinhas pendentes do mês ativo (da maior para a menor).
+     * 2. Se sobrar valor excedente após quitar todas as casinhas do mês ativo,
+     *    esse excedente abate o saldo restante dos meses seguintes (em ordem cíclica a partir do próximo mês),
+     *    redistribuindo/reduzindo proporcionalmente o valor de todas as casinhas pendentes dos próximos meses
+     *    (ou quitando-as em cascata caso o excedente cubra o restante do ano), mantendo a soma global exata em R$ 50.000.
+     */
+    function applyCascadeDeposit(amount) {
+      const { totalPending } = getGlobalStats();
+      if (totalPending <= 0) {
+        showToast('Meta de R$ 50.000 já concluída!', 'Parabéns!', '100%');
+        return;
+      }
+
+      const effectiveDeposit = Math.min(amount, totalPending);
+      let remainingToAllocate = effectiveDeposit;
+      let newlyCompletedCount = 0;
+      let addedSessionSum = 0;
+
+      // Etapa 1: Quitar casinhas pendentes do mês ativo
+      const currentBoxes = state.months[state.activeMonth];
+      const pendingCurrent = currentBoxes
+        .filter((b) => !b.completed)
+        .sort((a, b) => b.value - a.value);
+
+      for (const box of pendingCurrent) {
+        if (remainingToAllocate <= 0.009) break;
+
+        if (remainingToAllocate >= box.value - 0.009) {
+          remainingToAllocate = Math.round((remainingToAllocate - box.value) * 100) / 100;
+          box.completed = true;
+          newlyCompletedCount++;
+          addedSessionSum += box.value;
+          state.sessionSelected.push({ month: state.activeMonth, id: box.id, value: box.value });
+        } else {
+          // Pagamento parcial na última casinha do mês ativo:
+          // Cria/marca a parte paga e reduz o valor da casinha pendente atual
+          const paidPart = Math.round(remainingToAllocate * 100) / 100;
+          box.value = Math.round((box.value - paidPart) * 100) / 100;
+          remainingToAllocate = 0;
+          addedSessionSum += paidPart;
+
+          // Compensamos o total global criando/somando esse valor pago em uma casinha já concluída do mês ou ajustando para manter soma = 50.000
+          const alreadyDone = currentBoxes.find((b) => b.completed);
+          if (alreadyDone) {
+            alreadyDone.value = Math.round((alreadyDone.value + paidPart) * 100) / 100;
+          } else {
+            // Se nenhuma estava concluída ainda, marca a menor casinha com o valor exato pago e distribui o restante nas pendentes do próprio mês
+            const smallest = [...pendingCurrent].sort((a, b) => a.value - b.value)[0];
+            const diffBack = Math.round((smallest.value + paidPart - paidPart) * 100) / 100;
+            smallest.value = paidPart;
+            smallest.completed = true;
+            newlyCompletedCount++;
+            // Redistribui a diferença nas demais pendentes do mês
+            const stillPending = currentBoxes.filter((b) => !b.completed);
+            if (stillPending.length > 0) {
+              const addEach = Math.floor((diffBack / stillPending.length) * 100) / 100;
+              stillPending.forEach((b, i) => {
+                b.value = Math.round((b.value + addEach) * 100) / 100;
+              });
+              const residual = Math.round((diffBack - addEach * stillPending.length) * 100) / 100;
+              stillPending[0].value = Math.round((stillPending[0].value + residual) * 100) / 100;
+            }
+          }
+        }
+      }
+
+      // Etapa 2: Se ainda houver excedente após quitar TODO o mês ativo, abater e reduzir proporcionalmente os próximos meses
+      let cascadedSurplus = 0;
+      if (remainingToAllocate > 0.009) {
+        cascadedSurplus = remainingToAllocate;
+
+        // Ordem dos próximos meses (ex: se está no Mês 12, segue Mês 1, Mês 2... ou se Mês 1, segue Mês 2..12)
+        const otherMonthsOrder = [];
+        for (let offset = 1; offset < TOTAL_MONTHS; offset++) {
+          const m = ((state.activeMonth - 1 + offset) % TOTAL_MONTHS) + 1;
+          otherMonthsOrder.push(m);
+        }
+
+        // Coleta todas as casinhas pendentes dos outros meses
+        const otherPendingBoxes = [];
+        let otherPendingTotal = 0;
+        otherMonthsOrder.forEach((m) => {
+          state.months[m].forEach((b) => {
+            if (!b.completed && b.value > 0) {
+              otherPendingBoxes.push({ month: m, box: b });
+              otherPendingTotal += b.value;
+            }
+          });
+        });
+
+        otherPendingTotal = Math.round(otherPendingTotal * 100) / 100;
+
+        if (remainingToAllocate >= otherPendingTotal - 0.01) {
+          // O excedente quita absolutamente tudo o que faltava no desafio!
+          otherPendingBoxes.forEach(({ box }) => {
+            box.completed = true;
+            newlyCompletedCount++;
+          });
+          remainingToAllocate = 0;
+        } else if (otherPendingBoxes.length > 0) {
+          // Reduz proporcionalmente cada casinha pendente dos próximos meses
+          const newOtherTotal = Math.round((otherPendingTotal - remainingToAllocate) * 100) / 100;
+          const ratio = newOtherTotal / otherPendingTotal;
+
+          let accumulatedNew = 0;
+          otherPendingBoxes.forEach(({ box }, index) => {
+            if (index === otherPendingBoxes.length - 1) {
+              // Garante fechamento exato até o último centavo/real
+              box.value = Math.max(0, Math.round((newOtherTotal - accumulatedNew) * 100) / 100);
+            } else {
+              // Arredonda para inteiro limpo quando possível
+              const scaled = Math.round(box.value * ratio);
+              box.value = scaled;
+              accumulatedNew += scaled;
+            }
+            if (box.value === 0) {
+              box.completed = true;
+            }
+          });
+
+          // Soma o excedente abatido nas casinhas concluídas do mês ativo para que a soma global permaneça exatos R$ 50.000
+          const completedInActive = currentBoxes.filter((b) => b.completed);
+          if (completedInActive.length > 0) {
+            completedInActive[0].value = Math.round((completedInActive[0].value + cascadedSurplus) * 100) / 100;
+          }
+        }
+      }
+
+      saveProgress();
+      renderAll();
+
+      if (cascadedSurplus > 0.01) {
+        showToast(
+          `Mês ${state.activeMonth} quitado + ${formatBRL(cascadedSurplus)} abatido nos próximos meses`,
+          `Total lançado: ${formatBRL(effectiveDeposit)}`,
+          'Cascata!'
+        );
+      } else {
+        showToast(
+          `Aporte abatido no Mês ${state.activeMonth}`,
+          formatBRL(effectiveDeposit),
+          'Abatido!'
+        );
+      }
+    }
+
+    // Renderização do Cabeçalho Global
+    function renderHeader() {
+      const { totalCompleted, totalPending, exactPercent } = getGlobalStats();
+      const formattedPct = exactPercent.toFixed(1).replace('.', ',') + '%';
+
+      elGlobalPercent.textContent = formattedPct;
+      elGlobalAmount.textContent = `${formatBRL(totalCompleted)} de ${formatBRL(GLOBAL_GOAL)}`;
+      elGlobalRemaining.textContent = formatBRL(totalPending);
+      elGlobalProgressBar.style.width = `${Math.min(100, exactPercent)}%`;
+    }
+
+    // Renderização das Abas Horizontais dos 12 Meses
+    function renderMonthTabs(scrollToActive = false) {
+      elMonthsTabs.innerHTML = '';
+
+      for (let m = 1; m <= TOTAL_MONTHS; m++) {
+        const isActive = m === state.activeMonth;
+        const stats = getMonthStats(m);
+        const isCompleted = stats.completedCount === BOXES_PER_MONTH;
 
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-
+        btn.dataset.month = m;
         btn.className = isActive
-          ? 'flex flex-col items-center justify-center py-2.5 px-3 rounded-2xl bg-[#1a0d14] border-2 border-[#ff007f] neon-glow transition-all'
-          : 'flex flex-col items-center justify-center py-2.5 px-3 rounded-2xl bg-[#1a0d14]/75 border border-[#331826] hover:border-[#ff007f]/40 transition-all';
+          ? 'shrink-0 px-3.5 py-2 rounded-2xl border-2 border-[#ff007f] bg-gradient-to-b from-[#2b111f] to-[#1a0d14] neon-glow text-left transition-all active:scale-95'
+          : 'shrink-0 px-3.5 py-2 rounded-2xl border border-[#331826] bg-[#1a0d14] hover:border-[#ff007f]/45 text-left transition-all active:scale-95';
 
         btn.innerHTML = `
           <div class="flex items-center gap-1.5">
-            <span class="text-sm sm:text-base font-extrabold ${isActive ? 'text-white' : 'text-pink-100/75'} tracking-tight">
-              ${r}º Semestre
+            <span class="text-xs sm:text-sm font-extrabold tracking-tight ${isActive ? 'text-white' : 'text-pink-100/85'}">
+              Mês ${m}
             </span>
-            <span class="text-[11px] font-bold px-1.5 py-0.5 rounded-md ${isActive ? 'bg-[#ff007f]/25 text-[#ff66b2]' : 'bg-[#24121c] text-pink-300/50'}">
-              ${percent}%
+            <span class="font-mono-num text-[11px] font-bold ${isCompleted ? 'text-[#ff66b2]' : isActive ? 'text-[#ff007f]' : 'text-pink-300/50'}">
+              • ${stats.percent}%
             </span>
           </div>
-          <div class="text-[11px] font-medium ${isActive ? 'text-pink-200/80' : 'text-pink-300/45'} mt-1">
-            ${formatBRL(sum)} • ${count}/50
+          <div class="font-mono-num text-[10px] font-semibold ${stats.wasReduced ? 'text-[#ff66b2]' : isActive ? 'text-pink-200/75' : 'text-pink-300/45'} mt-0.5">
+            ${formatBRL(stats.totalMonthGoal)}
           </div>
         `;
 
         btn.addEventListener('click', () => {
-          if (state.isDrawing) return;
-          state.activeRound = r;
+          if (state.isDrawing || state.activeMonth === m) return;
+          state.activeMonth = m;
           saveProgress();
-          renderAll();
+          renderMonthTabs(true);
+          renderActiveMonthSummary();
+          renderGrid();
         });
 
-        elRoundsTabs.appendChild(btn);
+        elMonthsTabs.appendChild(btn);
+      }
+
+      if (scrollToActive) {
+        const activeBtn = elMonthsTabs.querySelector(`button[data-month="${state.activeMonth}"]`);
+        if (activeBtn) {
+          activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
       }
     }
 
-    function renderActiveRoundSummary() {
-      const r = state.activeRound;
-      const { sum, count } = getRoundStats(r);
-      const exactPercent = (sum / ROUND_TOTAL_VALUE) * 100;
+    // Renderização do Resumo do Mês Ativo
+    function renderActiveMonthSummary() {
+      const m = state.activeMonth;
+      const stats = getMonthStats(m);
 
-      elActiveRoundTitle.textContent = `${r}º Semestre • Rodada ${r}`;
-      elActiveRoundAmount.textContent = `${formatBRL(sum)} de ${formatBRL(ROUND_TOTAL_VALUE)}`;
-      elActiveRoundCount.textContent = `${count} de ${BOXES_PER_ROUND} casinhas`;
-      elRoundProgressBar.style.width = `${Math.min(100, exactPercent)}%`;
+      elActiveMonthTitle.textContent = `Mês ${m}`;
+      elActiveMonthAmount.textContent = `${formatBRL(stats.completedSum)} de ${formatBRL(stats.totalMonthGoal)}`;
+      elActiveMonthCount.textContent = `${stats.completedCount} de ${BOXES_PER_MONTH} casinhas`;
+      elMonthProgressBar.style.width = `${Math.min(100, stats.percent)}%`;
 
-      const remaining = BOXES_PER_ROUND - count;
-      if (remaining === 0) {
+      if (stats.wasReduced) {
+        const savedDiff = Math.round((stats.initialMonthGoal - stats.totalMonthGoal) * 100) / 100;
+        elActiveMonthBadge.classList.remove('hidden');
+        elActiveMonthRange.innerHTML = `Meta reduzida em <span class="text-[#ff66b2] font-bold">${formatBRL(savedDiff)}</span> pelo abatimento`;
+      } else {
+        elActiveMonthBadge.classList.add('hidden');
+        const boxes = state.months[m];
+        const minVal = Math.min(...boxes.map((b) => b.value));
+        const maxVal = Math.max(...boxes.map((b) => b.value));
+        elActiveMonthRange.innerHTML = `Casinhas de <span class="text-[#ff66b2] font-semibold">${formatBRL(minVal)} a ${formatBRL(maxVal)}</span>`;
+      }
+
+      const pendingCount = BOXES_PER_MONTH - stats.completedCount;
+      if (pendingCount === 0) {
         elBtnDrawBox.disabled = true;
-        elBtnDrawBox.classList.add('opacity-40', 'cursor-not-allowed');
+        elBtnDrawBox.classList.add('opacity-45', 'pointer-events-none');
       } else {
         elBtnDrawBox.disabled = false;
-        elBtnDrawBox.classList.remove('opacity-40', 'cursor-not-allowed');
+        elBtnDrawBox.classList.remove('opacity-45', 'pointer-events-none');
       }
     }
 
+    // Renderização da Barra Flutuante de Aporte Atual
+    function renderSessionBar() {
+      const count = state.sessionSelected.length;
+      if (count === 0) {
+        elSessionCartBar.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        elSessionCartBar.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        return;
+      }
+
+      const total = state.sessionSelected.reduce((acc, item) => acc + item.value, 0);
+      elSessionCartAmount.textContent = formatBRL(total);
+      elSessionCartCount.textContent = `• ${count} ${count === 1 ? 'casinha' : 'casinhas'}`;
+
+      elSessionCartBar.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      elSessionCartBar.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+    }
+
+    // Renderização da Grade de 15 Casinhas do Mês
     function renderGrid(justToggledId = null) {
-      const checkedSet = new Set(state.completed[state.activeRound] || []);
+      const monthBoxes = state.months[state.activeMonth] || [];
       elBoxesGrid.innerHTML = '';
 
-      const filteredBoxes = ROUND_BOXES.filter((box) => {
-        const isChecked = checkedSet.has(box.id);
-        if (state.filter === 'pending') return !isChecked;
-        if (state.filter === 'completed') return isChecked;
+      const filteredBoxes = monthBoxes.filter((box) => {
+        if (state.filter === 'pending') return !box.completed;
+        if (state.filter === 'completed') return box.completed;
         return true;
       });
 
@@ -618,8 +1000,8 @@
         elEmptyFilterState.classList.remove('hidden');
         elEmptyFilterText.textContent =
           state.filter === 'pending'
-            ? `Parabéns! Todas as 50 casinhas do ${state.activeRound}º Semestre foram concluídas.`
-            : `Nenhuma casinha concluída ainda no ${state.activeRound}º Semestre.`;
+            ? `Parabéns! Todas as ${BOXES_PER_MONTH} casinhas do Mês ${state.activeMonth} foram concluídas.`
+            : `Nenhuma casinha concluída ainda no Mês ${state.activeMonth}.`;
         return;
       }
 
@@ -627,7 +1009,9 @@
       elEmptyFilterState.classList.add('hidden');
 
       filteredBoxes.forEach((box) => {
-        const isChecked = checkedSet.has(box.id);
+        const isChecked = box.completed;
+        const isReduced = !isChecked && box.value < box.initialValue - 0.01;
+
         const card = document.createElement('button');
         card.type = 'button';
         card.dataset.id = box.id;
@@ -635,11 +1019,13 @@
         card.setAttribute('aria-label', `Casinha de ${box.value} reais${isChecked ? ', concluída' : ''}`);
 
         const baseClasses =
-          'relative overflow-hidden flex flex-col items-center justify-center aspect-[1.08/1] rounded-2xl border select-none transition-all duration-150 active:scale-95';
+          'relative overflow-hidden flex flex-col items-center justify-center aspect-square rounded-2xl border select-none transition-all duration-150 active:scale-95 px-1';
 
         const stateClasses = isChecked
           ? 'box-slashed bg-gradient-to-b from-[#ff007f]/35 to-[#ff2a85]/20 border-[#ff007f] text-white neon-glow'
-          : 'bg-[#1a0d14] border-[#331826] hover:bg-[#24121c] hover:border-[#ff007f]/50 text-white';
+          : isReduced
+            ? 'bg-[#1f0e18] border-[#ff007f]/45 hover:bg-[#291220] text-white'
+            : 'bg-[#1a0d14] border-[#331826] hover:bg-[#24121c] hover:border-[#ff007f]/50 text-white';
 
         const animClass = justToggledId === box.id ? ' animate-pop' : '';
         card.className = `${baseClasses} ${stateClasses}${animClass}`;
@@ -648,17 +1034,19 @@
           ${
             isChecked
               ? `<span class="absolute top-1.5 right-1.5 text-[#ff66b2]" aria-hidden="true">
-                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                   <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                      <polyline points="20 6 9 17 4 12"/>
                    </svg>
                  </span>`
-              : ''
+              : isReduced
+                ? `<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#ff007f]" title="Valor reduzido pelo abatimento"></span>`
+                : ''
           }
-          <span class="text-[11px] sm:text-xs font-semibold ${isChecked ? 'text-[#ff66b2]/85' : 'text-pink-300/50'} leading-none mb-1">
+          <span class="text-[10px] sm:text-xs font-semibold ${isChecked ? 'text-[#ff66b2]/85' : 'text-pink-300/50'} leading-none mb-1">
             R$
           </span>
-          <span class="text-base sm:text-lg font-extrabold tracking-tight leading-none ${isChecked ? 'text-pink-100/75 line-through decoration-[#ff007f] decoration-2' : 'text-pink-50'}">
-            ${box.value}
+          <span class="font-mono-num text-sm sm:text-lg font-extrabold tracking-tight leading-none ${isChecked ? 'text-pink-100/75 line-through decoration-[#ff007f] decoration-2' : 'text-pink-50'}">
+            ${formatBoxNumber(box.value)}
           </span>
         `;
 
@@ -671,41 +1059,98 @@
       });
     }
 
+    // Marcar / Desmarcar Casinha Individualmente
     function toggleBox(boxId, forceCheck = null) {
-      const r = state.activeRound;
-      const list = state.completed[r];
-      const idx = list.indexOf(boxId);
-      const boxObj = ROUND_BOXES[boxId];
+      const m = state.activeMonth;
+      const box = state.months[m][boxId];
+      if (!box) return;
 
-      const shouldCheck = forceCheck !== null ? forceCheck : idx === -1;
+      const shouldCheck = forceCheck !== null ? forceCheck : !box.completed;
+      box.completed = shouldCheck;
 
       if (shouldCheck) {
-        if (idx === -1) {
-          list.push(boxId);
-          state.sessionSelected.push({ round: r, id: boxId, value: boxObj.value });
+        const exists = state.sessionSelected.some((item) => item.month === m && item.id === boxId);
+        if (!exists) {
+          state.sessionSelected.push({ month: m, id: boxId, value: box.value });
         }
       } else {
-        if (idx !== -1) {
-          list.splice(idx, 1);
-          state.sessionSelected = state.sessionSelected.filter(
-            (item) => !(item.round === r && item.id === boxId)
-          );
-        }
+        state.sessionSelected = state.sessionSelected.filter(
+          (item) => !(item.month === m && item.id === boxId)
+        );
       }
 
       saveProgress();
       renderHeader();
-      renderTabs();
-      renderActiveRoundSummary();
+      renderMonthTabs(false);
+      renderActiveMonthSummary();
       renderSessionBar();
       renderGrid(boxId);
     }
 
+    // Eventos do Modal de Aporte Extra (Cascata)
+    function updateExtraPreview() {
+      const m = state.activeMonth;
+      const stats = getMonthStats(m);
+      const val = parseFloat(elExtraAmountInput.value) || 0;
+      const surplus = Math.max(0, Math.round((val - stats.pendingSum) * 100) / 100);
+
+      elPreviewMonthPending.textContent = formatBRL(stats.pendingSum);
+      elPreviewCascadeSurplus.textContent = formatBRL(surplus);
+    }
+
+    elBtnOpenExtra.addEventListener('click', () => {
+      if (state.isDrawing) return;
+      const m = state.activeMonth;
+      elExtraModalMonthTag.textContent = `Mês ${m}`;
+      elExtraModalMonthName.textContent = `Mês ${m}`;
+      elExtraAmountInput.value = '';
+      elExtraErrorMsg.classList.add('hidden');
+      updateExtraPreview();
+      elExtraModal.classList.remove('hidden');
+      elExtraModal.classList.add('flex');
+      setTimeout(() => elExtraAmountInput.focus(), 80);
+    });
+
+    function closeExtraModal() {
+      elExtraModal.classList.add('hidden');
+      elExtraModal.classList.remove('flex');
+    }
+
+    elBtnCancelExtra.addEventListener('click', closeExtraModal);
+    elExtraModal.addEventListener('click', (e) => {
+      if (e.target === elExtraModal) closeExtraModal();
+    });
+
+    elExtraAmountInput.addEventListener('input', () => {
+      elExtraErrorMsg.classList.add('hidden');
+      updateExtraPreview();
+    });
+
+    elQuickExtraBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const quickVal = Number(btn.dataset.quick) || 0;
+        elExtraAmountInput.value = quickVal;
+        elExtraErrorMsg.classList.add('hidden');
+        updateExtraPreview();
+      });
+    });
+
+    elBtnConfirmExtra.addEventListener('click', () => {
+      const val = parseFloat(elExtraAmountInput.value);
+      if (isNaN(val) || val <= 0) {
+        elExtraErrorMsg.classList.remove('hidden');
+        return;
+      }
+      closeExtraModal();
+      applyCascadeDeposit(val);
+    });
+
+    // Sorteador Animado no Mês Ativo
     function drawRandomBox() {
       if (state.isDrawing) return;
 
-      const checkedSet = new Set(state.completed[state.activeRound] || []);
-      const available = ROUND_BOXES.filter((b) => !checkedSet.has(b.id));
+      const monthBoxes = state.months[state.activeMonth] || [];
+      const available = monthBoxes.filter((b) => !b.completed);
 
       if (available.length === 0) return;
 
@@ -745,7 +1190,7 @@
 
           state.pendingDrawnBoxId = chosenBox.id;
           elDrawModalTitle.textContent = formatBRL(chosenBox.value);
-          elDrawModalSubtitle.textContent = `${state.activeRound}º Semestre • Deseja marcar esta casinha como concluída agora?`;
+          elDrawModalSubtitle.textContent = `Mês ${state.activeMonth} • Deseja marcar esta casinha como concluída agora?`;
           elBtnConfirmDraw.textContent = `Marcar ${formatBRL(chosenBox.value)}`;
           elDrawModal.classList.remove('hidden');
           elDrawModal.classList.add('flex');
@@ -768,13 +1213,16 @@
 
     elBtnConfirmDraw.addEventListener('click', () => {
       if (state.pendingDrawnBoxId !== null) {
-        const chosenBox = ROUND_BOXES[state.pendingDrawnBoxId];
-        toggleBox(chosenBox.id, true);
-        showToast(`${state.activeRound}º Semestre • Casinha sorteada`, formatBRL(chosenBox.value), 'Concluída!');
+        const box = state.months[state.activeMonth][state.pendingDrawnBoxId];
+        if (box) {
+          toggleBox(state.pendingDrawnBoxId, true);
+          showToast(`Mês ${state.activeMonth} • Casinha sorteada`, formatBRL(box.value), 'Concluída!');
+        }
       }
       closeDrawModal();
     });
 
+    // Filtros
     function setFilter(newFilter) {
       state.filter = newFilter;
       elFilterBtns.forEach((btn) => {
@@ -790,13 +1238,13 @@
 
     function renderAll() {
       renderHeader();
-      renderTabs();
-      renderActiveRoundSummary();
+      renderMonthTabs(true);
+      renderActiveMonthSummary();
       renderSessionBar();
       renderGrid();
     }
 
-    // Event Listeners
+    // Event Listeners Principais
     elBtnDrawBox.addEventListener('click', drawRandomBox);
 
     elBtnClearSession.addEventListener('click', () => {
@@ -816,6 +1264,7 @@
       });
     });
 
+    // Modal de Zerar
     elBtnOpenReset.addEventListener('click', () => {
       elResetModal.classList.remove('hidden');
       elResetModal.classList.add('flex');
@@ -831,15 +1280,15 @@
       if (e.target === elResetModal) closeResetModal();
     });
 
-    elBtnConfirmReset.addEventListener('click', () => {
-      state.completed = { 1: [], 2: [] };
+    elBtnResetAll.addEventListener('click', () => {
+      state.months = createInitialMonthsData();
       state.sessionSelected = [];
-      state.activeRound = 1;
+      state.activeMonth = 1;
       saveProgress();
       closeResetModal();
       setFilter('all');
       renderAll();
-      showToast('Progresso zerado', 'R$ 0 de R$ 50.000', 'Reiniciado');
+      showToast('Desafio 50k reiniciado', 'R$ 0 de R$ 50.000', 'Zerado');
     });
 
     // Inicialização
