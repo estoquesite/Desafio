@@ -46,8 +46,10 @@
       max-width: 480px;
       min-height: 100vh;
       background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.08), transparent 45%), var(--bg-light);
-      padding: 18px 16px 115px;
+      padding: 10px 12px 68px;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     /* TELA DE BLOQUEIO / SENHA PIN */
@@ -60,8 +62,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 20px;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .lock-screen.hidden {
@@ -71,44 +73,44 @@
     }
 
     .lock-badge {
-      width: 64px;
-      height: 64px;
-      border-radius: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
       background: var(--neon-soft);
       border: 1.5px solid var(--neon-pink);
-      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.2);
+      box-shadow: 0 6px 18px rgba(255, 0, 127, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       color: var(--neon-pink);
     }
 
     .lock-title {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       text-align: center;
       color: var(--text-main);
     }
 
     .lock-subtitle {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 26px;
+      margin-bottom: 20px;
       text-align: center;
-      max-width: 280px;
+      max-width: 260px;
     }
 
     .pin-dots {
       display: flex;
-      gap: 16px;
-      margin-bottom: 28px;
+      gap: 14px;
+      margin-bottom: 22px;
     }
 
     .pin-dot {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       border: 2px solid var(--neon-border);
       background: #ffffff;
@@ -118,7 +120,7 @@
     .pin-dot.filled {
       background: var(--neon-pink);
       border-color: var(--neon-pink);
-      box-shadow: 0 0 12px rgba(255, 0, 127, 0.45);
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.45);
       transform: scale(1.15);
     }
 
@@ -130,25 +132,25 @@
 
     .keypad {
       display: grid;
-      grid-template-columns: repeat(3, 74px);
-      gap: 14px;
+      grid-template-columns: repeat(3, 68px);
+      gap: 12px;
       justify-content: center;
     }
 
     .key-btn {
-      width: 74px;
-      height: 74px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       border: 1px solid rgba(255, 0, 127, 0.2);
       background: #ffffff;
       color: var(--text-main);
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(255, 0, 127, 0.08);
+      box-shadow: 0 4px 10px rgba(255, 0, 127, 0.08);
       transition: all 0.15s ease;
       user-select: none;
     }
@@ -157,12 +159,11 @@
       background: var(--neon-pink);
       color: #ffffff;
       border-color: var(--neon-pink);
-      box-shadow: 0 0 18px rgba(255, 0, 127, 0.45);
       transform: scale(0.94);
     }
 
     .key-btn.action-key {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-muted);
       border-color: transparent;
@@ -171,98 +172,37 @@
     }
 
     .lock-error-msg {
-      height: 20px;
-      margin-top: 16px;
-      font-size: 0.8rem;
+      height: 18px;
+      margin-top: 12px;
+      font-size: 0.78rem;
       color: #e11d48;
       font-weight: 700;
     }
 
-    /* BANNER DE ATALHO / INSTALAR APP */
-    .install-banner {
-      background: linear-gradient(135deg, #ffffff 0%, #ffe6f2 100%);
-      border: 1.5px solid var(--neon-pink);
-      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.14);
-      border-radius: 16px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .install-banner.hidden {
-      display: none;
-    }
-
-    .install-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .install-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: var(--neon-pink);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(255, 0, 127, 0.35);
-    }
-
-    .install-title {
-      font-size: 0.84rem;
-      font-weight: 800;
-      color: var(--text-main);
-    }
-
-    .install-desc {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
-
-    .install-btn {
-      background: var(--neon-pink);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.3);
-    }
-
-    /* TOPO DO APP */
+    /* TOPO SUPER COMPACTO */
     .top-bar {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 14px;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
     }
 
     .global-progress-label {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 5px;
+      flex-wrap: wrap;
     }
 
     .global-pct {
-      font-size: 1.35rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--neon-pink);
-      text-shadow: 0 0 12px rgba(255, 0, 127, 0.25);
     }
 
     .global-amounts {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-main);
     }
@@ -270,64 +210,73 @@
     .save-status {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
+      gap: 4px;
+      font-size: 0.66rem;
       color: var(--neon-bright);
-      margin-top: 3px;
+      margin-top: 1px;
       font-weight: 600;
     }
 
     .top-actions {
       display: flex;
-      gap: 6px;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .mini-install-btn {
+      background: var(--neon-pink);
+      color: #ffffff;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 9px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 0 2px 8px rgba(255, 0, 127, 0.28);
     }
 
     .icon-pill-btn {
       background: var(--bg-card);
       border: 1px solid var(--neon-border);
       color: var(--text-main);
-      padding: 7px 10px;
-      border-radius: 12px;
-      font-size: 0.74rem;
+      padding: 5px 8px;
+      border-radius: 9px;
+      font-size: 0.68rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
-      box-shadow: 0 2px 8px rgba(255, 0, 127, 0.06);
-      transition: all 0.2s ease;
-    }
-
-    .icon-pill-btn:hover {
-      border-color: var(--neon-pink);
-      background: var(--bg-card-hover);
+      gap: 3px;
     }
 
     .progress-track {
       width: 100%;
-      height: 8px;
+      height: 6px;
       background: #ffd6e8;
       border-radius: 999px;
       overflow: hidden;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
 
     .progress-fill {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, #ff007f, #ff4da6);
-      box-shadow: 0 0 10px rgba(255, 0, 127, 0.45);
       border-radius: 999px;
-      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: width 0.3s ease;
     }
 
-    /* ABAS DOS 12 MESES */
+    /* ABAS DOS 12 MESES COMPACTAS */
     .months-scroll {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 14px;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
       scrollbar-width: none;
     }
 
@@ -337,21 +286,20 @@
 
     .month-tab {
       flex: 0 0 auto;
-      min-width: 82px;
+      min-width: 66px;
       background: var(--bg-card);
-      border: 1px solid rgba(255, 0, 127, 0.14);
-      border-radius: 14px;
-      padding: 9px 10px;
+      border: 1px solid rgba(255, 0, 127, 0.16);
+      border-radius: 10px;
+      padding: 5px 7px;
       text-align: center;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(255, 0, 127, 0.05);
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
     .month-tab.active {
       border-color: var(--neon-pink);
       background: linear-gradient(180deg, #ff007f, #e60073);
-      box-shadow: 0 4px 14px rgba(255, 0, 127, 0.32);
+      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.28);
     }
 
     .month-tab.completed {
@@ -359,7 +307,7 @@
     }
 
     .month-tab-name {
-      font-size: 0.82rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--text-main);
     }
@@ -369,34 +317,33 @@
     }
 
     .month-tab-pct {
-      font-size: 0.72rem;
+      font-size: 0.64rem;
       font-weight: 600;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .month-tab.active .month-tab-pct {
       color: #ffe6f2;
     }
 
-    /* CABEÇALHO DO MÊS ATIVO */
+    /* CABEÇALHO DO MÊS ATIVO COMPACTO */
     .month-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 7px;
     }
 
     .month-title {
-      font-size: 1.25rem;
+      font-size: 1rem;
       font-weight: 800;
       color: var(--text-main);
     }
 
     .month-subtitle {
-      font-size: 0.78rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
-      margin-top: 2px;
     }
 
     .month-stats {
@@ -404,81 +351,76 @@
     }
 
     .month-amount {
-      font-size: 1.05rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: var(--text-main);
     }
 
     .month-count {
-      font-size: 0.76rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
-      margin-top: 2px;
     }
 
-    /* BOTÕES DE AÇÃO E FILTROS */
+    /* BOTÕES DE AÇÃO COMPACTOS */
     .controls-row {
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
     .btn-primary-neon {
-      flex: 1;
+      flex: 1.25;
       background: linear-gradient(135deg, #ff007f, #e60073);
       color: #fff;
       border: none;
-      border-radius: 12px;
-      padding: 11px 12px;
-      font-size: 0.8rem;
+      border-radius: 10px;
+      padding: 8px 8px;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(255, 0, 127, 0.3);
+      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: transform 0.15s ease;
-    }
-
-    .btn-primary-neon:active {
-      transform: scale(0.97);
+      gap: 4px;
     }
 
     .btn-secondary-neon {
       flex: 1;
       background: var(--bg-card);
       color: var(--neon-pink);
-      border: 1.5px solid var(--neon-border);
-      border-radius: 12px;
-      padding: 11px 12px;
-      font-size: 0.8rem;
+      border: 1px solid var(--neon-border);
+      border-radius: 10px;
+      padding: 8px 8px;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
     }
 
+    /* FILTROS COMPACTOS */
     .filters-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 8px;
     }
 
     .filter-pills {
       display: flex;
-      gap: 6px;
+      gap: 4px;
     }
 
     .filter-pill {
       background: var(--bg-card);
-      border: 1px solid rgba(255, 0, 127, 0.15);
+      border: 1px solid rgba(255, 0, 127, 0.16);
       color: var(--text-muted);
-      padding: 5px 11px;
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 0.74rem;
+      font-size: 0.68rem;
       font-weight: 600;
       cursor: pointer;
     }
@@ -493,30 +435,30 @@
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 0.74rem;
+      font-size: 0.68rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: underline;
     }
 
-    /* GRADE DE CASINHAS */
+    /* GRADE DE CASINHAS MENOR PARA CABER TUDO NA MESMA TELA */
     .boxes-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 6px;
     }
 
     .box-card {
       position: relative;
       background: var(--bg-card);
-      border: 1.5px solid rgba(255, 0, 127, 0.16);
-      border-radius: 16px;
-      padding: 16px 8px;
+      border: 1.5px solid rgba(255, 0, 127, 0.18);
+      border-radius: 12px;
+      padding: 7px 4px;
       text-align: center;
       cursor: pointer;
       overflow: hidden;
-      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.05);
-      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(255, 0, 127, 0.04);
+      transition: all 0.15s ease;
       user-select: none;
     }
 
@@ -527,14 +469,13 @@
 
     .box-card.highlight {
       border-color: var(--neon-pink);
-      box-shadow: 0 0 20px rgba(255, 0, 127, 0.55);
-      transform: scale(1.04);
+      box-shadow: 0 0 16px rgba(255, 0, 127, 0.55);
+      transform: scale(1.03);
     }
 
     .box-card.checked {
       background: linear-gradient(145deg, #ffe0ef, #ffcce4);
       border-color: var(--neon-pink);
-      box-shadow: 0 4px 12px rgba(255, 0, 127, 0.18);
     }
 
     /* RISCO DIAGONAL LUMINOSO */
@@ -544,25 +485,47 @@
       top: 50%;
       left: -10%;
       width: 120%;
-      height: 3px;
+      height: 2.5px;
       background: linear-gradient(90deg, transparent, #ff007f, #ff4da6, #ff007f, transparent);
-      box-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
-      transform: translateY(-50%) rotate(-18deg);
+      transform: translateY(-50%) rotate(-15deg);
       pointer-events: none;
     }
 
+    .box-edit-btn {
+      position: absolute;
+      top: 3px;
+      right: 4px;
+      background: rgba(255, 0, 127, 0.09);
+      border: none;
+      border-radius: 5px;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neon-bright);
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .box-edit-btn:active {
+      background: var(--neon-pink);
+      color: #ffffff;
+    }
+
     .box-currency {
-      font-size: 0.68rem;
+      font-size: 0.58rem;
       font-weight: 700;
       color: var(--text-muted);
-      letter-spacing: 0.5px;
+      line-height: 1;
     }
 
     .box-value {
-      font-size: 1.25rem;
+      font-size: 0.98rem;
       font-weight: 800;
       color: var(--text-main);
-      margin-top: 2px;
+      margin-top: 1px;
+      line-height: 1.15;
     }
 
     .box-card.checked .box-value {
@@ -573,22 +536,22 @@
     /* BARRA FLUTUANTE DE SESSÃO */
     .session-bar {
       position: fixed;
-      bottom: 16px;
+      bottom: 10px;
       left: 50%;
-      transform: translateX(-50%) translateY(120%);
-      width: calc(100% - 32px);
-      max-width: 448px;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
+      transform: translateX(-50%) translateY(130%);
+      width: calc(100% - 24px);
+      max-width: 456px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
       border: 1.5px solid var(--neon-pink);
-      box-shadow: 0 8px 26px rgba(255, 0, 127, 0.22);
-      border-radius: 16px;
-      padding: 12px 16px;
+      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.22);
+      border-radius: 13px;
+      padding: 9px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.25s ease;
     }
 
     .session-bar.visible {
@@ -596,13 +559,13 @@
     }
 
     .session-info-label {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       font-weight: 600;
     }
 
     .session-info-val {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: var(--neon-pink);
     }
@@ -611,9 +574,9 @@
       background: var(--neon-pink);
       color: #fff;
       border: none;
-      border-radius: 10px;
-      padding: 8px 14px;
-      font-size: 0.78rem;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -623,11 +586,11 @@
       position: fixed;
       inset: 0;
       background: rgba(36, 13, 24, 0.45);
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(5px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       z-index: 500;
       opacity: 0;
       visibility: hidden;
@@ -641,39 +604,39 @@
 
     .modal-card {
       width: 100%;
-      max-width: 380px;
+      max-width: 360px;
       background: #ffffff;
       border: 1.5px solid var(--neon-pink);
-      box-shadow: 0 12px 32px rgba(255, 0, 127, 0.22);
-      border-radius: 20px;
-      padding: 22px;
+      box-shadow: 0 12px 30px rgba(255, 0, 127, 0.22);
+      border-radius: 18px;
+      padding: 20px;
       text-align: center;
     }
 
     .modal-title {
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: var(--text-main);
     }
 
     .modal-desc {
-      font-size: 0.84rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 16px;
+      line-height: 1.45;
+      margin-bottom: 14px;
     }
 
     .install-steps {
       text-align: left;
       background: #fff5f9;
       border: 1px solid rgba(255, 0, 127, 0.2);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      font-size: 0.8rem;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      font-size: 0.76rem;
       color: var(--text-main);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
     .install-steps strong {
@@ -684,24 +647,23 @@
       width: 100%;
       background: #fff5f9;
       border: 1.5px solid var(--neon-border);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border-radius: 11px;
+      padding: 10px 12px;
       color: var(--text-main);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       outline: none;
     }
 
     .modal-input:focus {
       border-color: var(--neon-pink);
-      box-shadow: 0 0 10px rgba(255, 0, 127, 0.25);
     }
 
     .modal-btns {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .modal-btn-cancel {
@@ -709,8 +671,9 @@
       background: #ffe6f2;
       color: var(--text-muted);
       border: none;
-      border-radius: 12px;
-      padding: 11px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -720,8 +683,9 @@
       background: var(--neon-pink);
       color: #fff;
       border: none;
-      border-radius: 12px;
-      padding: 11px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
     }
@@ -732,13 +696,13 @@
   <!-- TELA DE BLOQUEIO COM SENHA PIN -->
   <div id="lockScreen" class="lock-screen">
     <div class="lock-badge">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </div>
     <h1 id="lockTitle" class="lock-title">Crie sua senha PIN</h1>
-    <p id="lockSubtitle" class="lock-subtitle">Escolha uma senha de 4 dígitos para proteger suas caixinhas de R$ 50.000.</p>
+    <p id="lockSubtitle" class="lock-subtitle">Escolha uma senha de 4 dígitos para proteger suas caixinhas.</p>
 
     <div class="pin-dots" id="pinDots">
       <div class="pin-dot"></div>
@@ -767,24 +731,7 @@
 
   <!-- CONTEÚDO PRINCIPAL DO APP -->
   <div class="app-container">
-    <!-- ATALHO PARA BAIXAR / INSTALAR O APP NA TELA INICIAL -->
-    <div id="installBanner" class="install-banner">
-      <div class="install-info">
-        <div class="install-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-        </div>
-        <div>
-          <div class="install-title">Instalar App no Celular</div>
-          <div class="install-desc">Crie o ícone Rosa Neon na sua tela inicial</div>
-        </div>
-      </div>
-      <button class="install-btn" onclick="triggerInstallApp()">Baixar App</button>
-    </div>
-
+    <!-- TOPO COMPACTO COM BOTÃO BAIXAR PEQUENO -->
     <div class="top-bar">
       <div>
         <div class="global-progress-label">
@@ -792,27 +739,27 @@
           <span id="globalAmounts" class="global-amounts">R$ 0 de R$ 50.000</span>
         </div>
         <div class="save-status">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
             <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
           </svg>
-          <span>Salvo e protegido no dispositivo</span>
+          <span>Salvo e protegido</span>
         </div>
       </div>
 
       <div class="top-actions">
-        <button class="icon-pill-btn" onclick="openInstallModal()" title="Atalho para instalar app">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+        <button class="mini-install-btn" onclick="triggerInstallApp()" title="Baixar / Instalar App">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          App
+          Baixar
         </button>
         <button class="icon-pill-btn" onclick="openChangePinModal()" title="Alterar senha PIN">
           PIN
         </button>
         <button class="icon-pill-btn" onclick="lockNow()" title="Bloquear tela">
-          Bloquear
+          Sair
         </button>
       </div>
     </div>
@@ -828,7 +775,7 @@
     <div class="month-header">
       <div>
         <h2 id="activeMonthTitle" class="month-title">Mês 1</h2>
-        <div id="activeMonthRange" class="month-subtitle">Meta do mês: R$ 4.167</div>
+        <div id="activeMonthRange" class="month-subtitle">Meta: R$ 4.167 (✎ editar valor)</div>
       </div>
       <div class="month-stats">
         <div id="activeMonthAmount" class="month-amount">R$ 0 de R$ 4.167</div>
@@ -839,7 +786,7 @@
     <!-- BOTÕES PRINCIPAIS -->
     <div class="controls-row">
       <button class="btn-primary-neon" onclick="openExtraModal()">
-        + Lançar Aporte Extra
+        + Aporte Extra (Abater)
       </button>
       <button class="btn-secondary-neon" onclick="drawRandomBox()">
         Sortear Casinha
@@ -856,7 +803,7 @@
       <button class="reset-link" onclick="openResetModal()">Zerar tudo</button>
     </div>
 
-    <!-- GRADE DE CASINHAS -->
+    <!-- GRADE DE 15 CASINHAS COMPACTAS NA MESMA TELA -->
     <div id="boxesGrid" class="boxes-grid"></div>
   </div>
 
@@ -869,22 +816,37 @@
     <button class="session-done-btn" onclick="clearSessionCounter()">Concluir</button>
   </div>
 
+  <!-- MODAL DIGITAR / EDITAR VALOR DA CASINHA -->
+  <div id="editBoxModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h3 class="modal-title">Digitar Valor da Casinha</h3>
+      <p class="modal-desc">
+        Informe o valor livre que deseja colocar nesta casinha. O total do mês e da meta será atualizado automaticamente!
+      </p>
+      <input type="number" id="editBoxInput" class="modal-input" placeholder="Ex: 350" min="1" step="1" />
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="closeModal('editBoxModal')">Cancelar</button>
+        <button class="modal-btn-confirm" onclick="saveEditedBox()">Salvar Valor</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL ATALHO DE INSTALAÇÃO DO APP -->
   <div id="installModal" class="modal-backdrop">
     <div class="modal-card">
-      <h3 class="modal-title">Criar Atalho / Instalar App</h3>
-      <p class="modal-desc">Deixe o <strong>Desafio 50k Rosa Neon</strong> na tela inicial do seu celular como um aplicativo nativo:</p>
+      <h3 class="modal-title">Instalar App na Tela Inicial</h3>
+      <p class="modal-desc">Adicione o ícone <strong>Desafio 50k</strong> na tela inicial do seu celular:</p>
       <div class="install-steps">
         <strong>Android (Chrome / Samsung):</strong><br/>
         1. Toque nos <strong>3 pontinhos (⋮)</strong> no canto do navegador.<br/>
-        2. Selecione <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar aplicativo"</strong>.<br/><br/>
+        2. Toque em <strong>"Adicionar à tela inicial"</strong> ou <strong>"Instalar app"</strong>.<br/><br/>
         <strong>iPhone (Safari):</strong><br/>
-        1. Toque no botão <strong>Compartilhar (□↑)</strong> na barra inferior.<br/>
-        2. Role e toque em <strong>"Adicionar à Tela de Início"</strong>.
+        1. Toque em <strong>Compartilhar (□↑)</strong> na barra inferior.<br/>
+        2. Selecione <strong>"Adicionar à Tela de Início"</strong>.
       </div>
       <div class="modal-btns">
-        <button class="modal-btn-cancel" onclick="downloadHtmlBackup()">Salvar Cópia (.html)</button>
-        <button class="modal-btn-confirm" onclick="closeModal('installModal')">Entendi</button>
+        <button class="modal-btn-cancel" onclick="downloadHtmlBackup()">Baixar Arquivo (.html)</button>
+        <button class="modal-btn-confirm" onclick="closeModal('installModal')">Fechar</button>
       </div>
     </div>
   </div>
@@ -894,7 +856,7 @@
     <div class="modal-card">
       <h3 class="modal-title">Lançar Aporte Extra</h3>
       <p class="modal-desc">
-        Digite o valor total que você vai guardar agora. Ele quita as casinhas deste mês e abate o excedente dos próximos meses!
+        Digite o valor guardado agora. Ele quita as casinhas deste mês e abate o excedente dos próximos meses!
       </p>
       <input type="number" id="extraAmountInput" class="modal-input" placeholder="Ex: 6000" min="1" step="1" />
       <div class="modal-btns">
@@ -933,7 +895,7 @@
   <div id="resetModal" class="modal-backdrop">
     <div class="modal-card">
       <h3 class="modal-title">Zerar Desafio?</h3>
-      <p class="modal-desc">Isso vai desmarcar todas as casinhas e restaurar a meta original de R$ 50.000,00 nos 12 meses.</p>
+      <p class="modal-desc">Isso vai desmarcar todas as casinhas e restaurar os valores originais de R$ 50.000,00 nos 12 meses.</p>
       <div class="modal-btns">
         <button class="modal-btn-cancel" onclick="closeModal('resetModal')">Cancelar</button>
         <button class="modal-btn-confirm" onclick="resetAllData()">Zerar Tudo</button>
@@ -944,7 +906,6 @@
   <script>
     const STORAGE_KEY = 'desafio_50k_rosa_neon_pin_v1';
     const PIN_KEY = 'desafio_50k_rosa_neon_user_pin';
-    const TARGET_TOTAL = 50000;
 
     let currentPinInput = '';
     let tempSetupPin = '';
@@ -955,6 +916,7 @@
     let sessionAmount = 0;
     let sessionCount = 0;
     let pendingDrawBoxIndex = null;
+    let editingBoxIndex = null;
     let deferredInstallPrompt = null;
 
     // Ícone e Manifesto dinâmico para permitir instalação como App PWA
@@ -1061,7 +1023,7 @@
       if (!savedPin) {
         pinMode = 'create';
         lockTitle.textContent = 'Crie sua senha PIN';
-        lockSubtitle.textContent = 'Digite 4 números para proteger suas caixinhas de R$ 50.000.';
+        lockSubtitle.textContent = 'Digite 4 números para proteger suas caixinhas.';
         forgotBtn.style.visibility = 'hidden';
       } else {
         pinMode = 'verify';
@@ -1090,7 +1052,7 @@
       updatePinDots();
 
       if (currentPinInput.length === 4) {
-        setTimeout(handlePinComplete, 180);
+        setTimeout(handlePinComplete, 160);
       }
     }
 
@@ -1178,15 +1140,17 @@
 
     function renderAll() {
       let totalSaved = 0;
+      let totalGoal = 0;
       state.forEach(month => {
         month.forEach(b => {
+          totalGoal += b.amount;
           if (b.done) totalSaved += b.amount;
         });
       });
 
-      const pct = Math.min(100, (totalSaved / TARGET_TOTAL) * 100);
+      const pct = totalGoal > 0 ? Math.min(100, (totalSaved / totalGoal) * 100) : 0;
       document.getElementById('globalPct').textContent = pct.toFixed(1) + '%';
-      document.getElementById('globalAmounts').textContent = `${formatBRL(totalSaved)} de ${formatBRL(TARGET_TOTAL)}`;
+      document.getElementById('globalAmounts').textContent = `${formatBRL(totalSaved)} de ${formatBRL(totalGoal)}`;
       document.getElementById('globalProgressBar').style.width = pct + '%';
 
       const tabsEl = document.getElementById('monthsTabs');
@@ -1215,7 +1179,7 @@
       const doneCount = currentBoxes.filter(b => b.done).length;
 
       document.getElementById('activeMonthTitle').textContent = MONTH_NAMES[activeMonth];
-      document.getElementById('activeMonthRange').textContent = `Meta do mês: ${formatBRL(monthTotal)}`;
+      document.getElementById('activeMonthRange').textContent = `Meta: ${formatBRL(monthTotal)} (✎ editar valor)`;
       document.getElementById('activeMonthAmount').textContent = `${formatBRL(monthSaved)} de ${formatBRL(monthTotal)}`;
       document.getElementById('activeMonthCount').textContent = `${doneCount} de ${currentBoxes.length} casinhas`;
 
@@ -1229,6 +1193,12 @@
         card.id = `box-${bIdx}`;
         card.className = 'box-card' + (box.done ? ' checked' : '');
         card.innerHTML = `
+          <button class="box-edit-btn" title="Digitar valor" onclick="openEditBoxModal(event, ${bIdx})">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </button>
           <div class="box-currency">R$</div>
           <div class="box-value">${Math.round(box.amount).toLocaleString('pt-BR')}</div>
         `;
@@ -1237,6 +1207,34 @@
       });
 
       updateSessionBar();
+    }
+
+    // EDITAR VALOR LIVRE DA CASINHA
+    function openEditBoxModal(e, boxIdx) {
+      e.stopPropagation();
+      editingBoxIndex = boxIdx;
+      const currentVal = Math.round(state[activeMonth][boxIdx].amount);
+      const inputEl = document.getElementById('editBoxInput');
+      inputEl.value = currentVal;
+      document.getElementById('editBoxModal').classList.add('open');
+      setTimeout(() => {
+        inputEl.focus();
+        inputEl.select();
+      }, 100);
+    }
+
+    function saveEditedBox() {
+      if (editingBoxIndex === null) return;
+      const newVal = parseFloat(document.getElementById('editBoxInput').value);
+      if (isNaN(newVal) || newVal <= 0) {
+        alert('Digite um valor válido maior que zero.');
+        return;
+      }
+      state[activeMonth][editingBoxIndex].amount = Math.round(newVal);
+      editingBoxIndex = null;
+      saveState();
+      closeModal('editBoxModal');
+      renderAll();
     }
 
     function toggleBox(boxIdx) {
@@ -1277,8 +1275,10 @@
     }
 
     function openExtraModal() {
-      document.getElementById('extraAmountInput').value = '';
+      const inputEl = document.getElementById('extraAmountInput');
+      inputEl.value = '';
       document.getElementById('extraModal').classList.add('open');
+      setTimeout(() => inputEl.focus(), 100);
     }
 
     function applyCascadeDeposit() {
