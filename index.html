@@ -31,28 +31,33 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg-light);
       color: var(--text-main);
-      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body {
       display: flex;
       justify-content: center;
-      overflow-x: hidden;
     }
 
     .app-container {
       width: 100%;
       max-width: 480px;
-      min-height: 100vh;
+      height: 100dvh;
+      max-height: 100dvh;
       background: radial-gradient(circle at top right, rgba(255, 0, 127, 0.08), transparent 45%), var(--bg-light);
-      padding: 10px 12px 68px;
+      padding: 10px 12px 12px;
       position: relative;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
-    /* TELA DE BLOQUEIO / SENHA PIN */
+    /* TELA DE BLOQUEIO / SENHA PIN + BIOMETRIA DIGITAL */
     .lock-screen {
       position: fixed;
       inset: 0;
@@ -73,21 +78,21 @@
     }
 
     .lock-badge {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
       background: var(--neon-soft);
       border: 1.5px solid var(--neon-pink);
       box-shadow: 0 6px 18px rgba(255, 0, 127, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       color: var(--neon-pink);
     }
 
     .lock-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       margin-bottom: 4px;
       text-align: center;
@@ -95,17 +100,17 @@
     }
 
     .lock-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       text-align: center;
-      max-width: 260px;
+      max-width: 265px;
     }
 
     .pin-dots {
       display: flex;
       gap: 14px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .pin-dot {
@@ -132,14 +137,14 @@
 
     .keypad {
       display: grid;
-      grid-template-columns: repeat(3, 68px);
-      gap: 12px;
+      grid-template-columns: repeat(3, 66px);
+      gap: 11px;
       justify-content: center;
     }
 
     .key-btn {
-      width: 68px;
-      height: 68px;
+      width: 66px;
+      height: 66px;
       border-radius: 50%;
       border: 1px solid rgba(255, 0, 127, 0.2);
       background: #ffffff;
@@ -163,7 +168,7 @@
     }
 
     .key-btn.action-key {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-muted);
       border-color: transparent;
@@ -171,50 +176,62 @@
       box-shadow: none;
     }
 
-    .lock-error-msg {
-      height: 18px;
-      margin-top: 12px;
-      font-size: 0.78rem;
-      color: #e11d48;
-      font-weight: 700;
+    .biometric-btn {
+      margin-top: 16px;
+      background: #ffffff;
+      border: 1.5px solid var(--neon-pink);
+      color: var(--neon-pink);
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 14px rgba(255, 0, 127, 0.16);
     }
 
-    /* TOPO SUPER COMPACTO */
+    .biometric-btn.hidden {
+      display: none;
+    }
+
+    .lock-error-msg {
+      height: 18px;
+      margin-top: 10px;
+      font-size: 0.76rem;
+      color: #e11d48;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* TOPO */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 6px;
       margin-bottom: 6px;
+      flex-shrink: 0;
     }
 
     .global-progress-label {
       display: flex;
       align-items: baseline;
-      gap: 5px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
     .global-pct {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       color: var(--neon-pink);
     }
 
     .global-amounts {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-main);
-    }
-
-    .save-status {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.66rem;
-      color: var(--neon-bright);
-      margin-top: 1px;
-      font-weight: 600;
     }
 
     .top-actions {
@@ -229,14 +246,13 @@
       color: #ffffff;
       border: none;
       padding: 5px 8px;
-      border-radius: 9px;
+      border-radius: 8px;
       font-size: 0.68rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 3px;
-      box-shadow: 0 2px 8px rgba(255, 0, 127, 0.28);
     }
 
     .icon-pill-btn {
@@ -244,13 +260,19 @@
       border: 1px solid var(--neon-border);
       color: var(--text-main);
       padding: 5px 8px;
-      border-radius: 9px;
+      border-radius: 8px;
       font-size: 0.68rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 3px;
+    }
+
+    .icon-pill-btn.bio-active {
+      background: var(--neon-soft);
+      border-color: var(--neon-pink);
+      color: var(--neon-pink);
     }
 
     .progress-track {
@@ -260,6 +282,7 @@
       border-radius: 999px;
       overflow: hidden;
       margin-bottom: 8px;
+      flex-shrink: 0;
     }
 
     .progress-fill {
@@ -270,7 +293,7 @@
       transition: width 0.3s ease;
     }
 
-    /* ABAS DOS 12 MESES COMPACTAS */
+    /* ABAS DOS 12 MESES */
     .months-scroll {
       display: flex;
       gap: 6px;
@@ -278,6 +301,7 @@
       padding-bottom: 4px;
       margin-bottom: 8px;
       scrollbar-width: none;
+      flex-shrink: 0;
     }
 
     .months-scroll::-webkit-scrollbar {
@@ -299,7 +323,7 @@
     .month-tab.active {
       border-color: var(--neon-pink);
       background: linear-gradient(180deg, #ff007f, #e60073);
-      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.28);
+      box-shadow: 0 3px 10px rgba(255, 0, 127, 0.25);
     }
 
     .month-tab.completed {
@@ -327,16 +351,17 @@
       color: #ffe6f2;
     }
 
-    /* CABEÇALHO DO MÊS ATIVO COMPACTO */
+    /* CABEÇALHO DO MÊS ATIVO */
     .month-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
+      flex-shrink: 0;
     }
 
     .month-title {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--text-main);
     }
@@ -351,7 +376,7 @@
     }
 
     .month-amount {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 800;
       color: var(--text-main);
     }
@@ -361,11 +386,12 @@
       color: var(--text-muted);
     }
 
-    /* BOTÕES DE AÇÃO COMPACTOS */
+    /* BOTÕES DE AÇÃO */
     .controls-row {
       display: flex;
       gap: 6px;
       margin-bottom: 8px;
+      flex-shrink: 0;
     }
 
     .btn-primary-neon {
@@ -375,7 +401,7 @@
       border: none;
       border-radius: 10px;
       padding: 8px 8px;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 3px 10px rgba(255, 0, 127, 0.25);
@@ -389,10 +415,10 @@
       flex: 1;
       background: var(--bg-card);
       color: var(--neon-pink);
-      border: 1px solid var(--neon-border);
+      border: 1.5px solid var(--neon-border);
       border-radius: 10px;
       padding: 8px 8px;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -401,12 +427,13 @@
       gap: 4px;
     }
 
-    /* FILTROS COMPACTOS */
+    /* FILTROS */
     .filters-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
+      flex-shrink: 0;
     }
 
     .filter-pills {
@@ -441,20 +468,26 @@
       text-decoration: underline;
     }
 
-    /* GRADE DE CASINHAS MENOR PARA CABER TUDO NA MESMA TELA */
+    /* GRADE DE CASINHAS QUE PREENCHE EXATAMENTE O RESTO DA TELA */
     .boxes-grid {
+      flex: 1;
+      min-height: 0;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      grid-auto-rows: 1fr;
+      gap: 7px;
     }
 
     .box-card {
       position: relative;
       background: var(--bg-card);
-      border: 1.5px solid rgba(255, 0, 127, 0.18);
-      border-radius: 12px;
-      padding: 7px 4px;
-      text-align: center;
+      border: 1.5px solid rgba(255, 0, 127, 0.2);
+      border-radius: 13px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(255, 0, 127, 0.04);
@@ -493,7 +526,7 @@
 
     .box-edit-btn {
       position: absolute;
-      top: 3px;
+      top: 4px;
       right: 4px;
       background: rgba(255, 0, 127, 0.09);
       border: none;
@@ -508,24 +541,19 @@
       z-index: 2;
     }
 
-    .box-edit-btn:active {
-      background: var(--neon-pink);
-      color: #ffffff;
-    }
-
     .box-currency {
-      font-size: 0.58rem;
+      font-size: 0.62rem;
       font-weight: 700;
       color: var(--text-muted);
       line-height: 1;
     }
 
     .box-value {
-      font-size: 0.98rem;
+      font-size: 1.08rem;
       font-weight: 800;
       color: var(--text-main);
-      margin-top: 1px;
-      line-height: 1.15;
+      margin-top: 2px;
+      line-height: 1.1;
     }
 
     .box-card.checked .box-value {
@@ -533,52 +561,56 @@
       text-decoration: line-through;
     }
 
-    /* BARRA FLUTUANTE DE SESSÃO */
-    .session-bar {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%) translateY(130%);
-      width: calc(100% - 24px);
-      max-width: 456px;
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(10px);
-      border: 1.5px solid var(--neon-pink);
-      box-shadow: 0 6px 20px rgba(255, 0, 127, 0.22);
-      border-radius: 13px;
-      padding: 9px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-      transition: transform 0.25s ease;
-    }
-
-    .session-bar.visible {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .session-info-label {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .session-info-val {
-      font-size: 0.88rem;
-      font-weight: 800;
+    /* CARD ESPECIAL "+ NOVA CASINHA" */
+    .box-card.add-box-card {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1.5px dashed var(--neon-pink);
       color: var(--neon-pink);
     }
 
-    .session-done-btn {
-      background: var(--neon-pink);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 0.74rem;
+    .box-card.add-box-card:active {
+      background: var(--neon-soft);
+    }
+
+    .add-box-plus {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .add-box-label {
+      font-size: 0.66rem;
       font-weight: 700;
-      cursor: pointer;
+      margin-top: 2px;
+    }
+
+    /* TOAST DE FEEDBACK DA CASCATA */
+    .cascade-toast {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-140%);
+      width: calc(100% - 28px);
+      max-width: 440px;
+      background: #240d18;
+      color: #ffffff;
+      border: 1.5px solid var(--neon-pink);
+      box-shadow: 0 8px 24px rgba(255, 0, 127, 0.35);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      line-height: 1.4;
+      z-index: 800;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .cascade-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cascade-toast strong {
+      color: #ff66b2;
     }
 
     /* MODAIS */
@@ -689,11 +721,24 @@
       font-weight: 700;
       cursor: pointer;
     }
+
+    .modal-btn-danger {
+      background: #ffe4e6;
+      color: #e11d48;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
 
-  <!-- TELA DE BLOQUEIO COM SENHA PIN -->
+  <!-- TELA DE BLOQUEIO COM SENHA PIN E IMPRESSÃO DIGITAL -->
   <div id="lockScreen" class="lock-screen">
     <div class="lock-badge">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -726,24 +771,34 @@
       <button class="key-btn action-key" onclick="deleteDigit()">Apagar</button>
     </div>
 
+    <button id="biometricUnlockBtn" class="biometric-btn hidden" onclick="unlockWithBiometrics()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"></path>
+        <path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"></path>
+        <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"></path>
+        <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"></path>
+        <path d="M8.65 22c.21-.66.45-1.32.57-2"></path>
+        <path d="M14 13.12c0 2.38 0 6.38-1 8.88"></path>
+        <path d="M2 16h.01"></path>
+        <path d="M21.8 16c.2-2 .131-5.354 0-6"></path>
+        <path d="M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2"></path>
+      </svg>
+      Entrar com Digital
+    </button>
+
     <div id="lockErrorMsg" class="lock-error-msg"></div>
   </div>
 
+  <!-- TOAST DE FEEDBACK DA CASCATA -->
+  <div id="cascadeToast" class="cascade-toast"></div>
+
   <!-- CONTEÚDO PRINCIPAL DO APP -->
   <div class="app-container">
-    <!-- TOPO COMPACTO COM BOTÃO BAIXAR PEQUENO -->
+    <!-- TOPO COMPACTO -->
     <div class="top-bar">
-      <div>
-        <div class="global-progress-label">
-          <span id="globalPct" class="global-pct">0.0%</span>
-          <span id="globalAmounts" class="global-amounts">R$ 0 de R$ 50.000</span>
-        </div>
-        <div class="save-status">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-          </svg>
-          <span>Salvo e protegido</span>
-        </div>
+      <div class="global-progress-label">
+        <span id="globalPct" class="global-pct">0.0%</span>
+        <span id="globalAmounts" class="global-amounts">R$ 0 de R$ 50.000</span>
       </div>
 
       <div class="top-actions">
@@ -754,6 +809,9 @@
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
           Baixar
+        </button>
+        <button id="bioConfigBtn" class="icon-pill-btn" onclick="openBiometricModal()" title="Ativar Impressão Digital">
+          Digital
         </button>
         <button class="icon-pill-btn" onclick="openChangePinModal()" title="Alterar senha PIN">
           PIN
@@ -775,7 +833,7 @@
     <div class="month-header">
       <div>
         <h2 id="activeMonthTitle" class="month-title">Mês 1</h2>
-        <div id="activeMonthRange" class="month-subtitle">Meta: R$ 4.167 (✎ editar valor)</div>
+        <div id="activeMonthRange" class="month-subtitle">Meta: R$ 4.167</div>
       </div>
       <div class="month-stats">
         <div id="activeMonthAmount" class="month-amount">R$ 0 de R$ 4.167</div>
@@ -786,7 +844,7 @@
     <!-- BOTÕES PRINCIPAIS -->
     <div class="controls-row">
       <button class="btn-primary-neon" onclick="openExtraModal()">
-        + Aporte Extra (Abater)
+        + Lançar Aporte (Cascata)
       </button>
       <button class="btn-secondary-neon" onclick="drawRandomBox()">
         Sortear Casinha
@@ -803,30 +861,68 @@
       <button class="reset-link" onclick="openResetModal()">Zerar tudo</button>
     </div>
 
-    <!-- GRADE DE 15 CASINHAS COMPACTAS NA MESMA TELA -->
+    <!-- GRADE DE CASINHAS QUE PREENCHE A TELA INTEIRA SEM CORTAR -->
     <div id="boxesGrid" class="boxes-grid"></div>
   </div>
 
-  <!-- BARRA FLUTUANTE DE APORTE DA SESSÃO -->
-  <div id="sessionBar" class="session-bar">
-    <div>
-      <div class="session-info-label">Marcadas agora</div>
-      <div id="sessionInfoVal" class="session-info-val">R$ 0 • 0 casinhas</div>
+  <!-- MODAL ADICIONAR NOVA CASINHA EXTRA NO MÊS -->
+  <div id="addBoxModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h3 class="modal-title">Adicionar Nova Casinha</h3>
+      <p class="modal-desc">
+        Crie uma casinha extra neste mês para aumentar seu aporte sem mexer nos valores dos próximos meses!
+      </p>
+      <input type="number" id="addBoxInput" class="modal-input" placeholder="Ex: 500" min="1" step="1" />
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="closeModal('addBoxModal')">Cancelar</button>
+        <button class="modal-btn-confirm" onclick="confirmAddBox(false)">Só Criar</button>
+        <button class="modal-btn-confirm" onclick="confirmAddBox(true)">Criar e Riscar</button>
+      </div>
     </div>
-    <button class="session-done-btn" onclick="clearSessionCounter()">Concluir</button>
   </div>
 
   <!-- MODAL DIGITAR / EDITAR VALOR DA CASINHA -->
   <div id="editBoxModal" class="modal-backdrop">
     <div class="modal-card">
-      <h3 class="modal-title">Digitar Valor da Casinha</h3>
+      <h3 class="modal-title">Editar Valor da Casinha</h3>
       <p class="modal-desc">
-        Informe o valor livre que deseja colocar nesta casinha. O total do mês e da meta será atualizado automaticamente!
+        Altere o valor desta casinha ou exclua se for uma casinha extra.
       </p>
       <input type="number" id="editBoxInput" class="modal-input" placeholder="Ex: 350" min="1" step="1" />
       <div class="modal-btns">
         <button class="modal-btn-cancel" onclick="closeModal('editBoxModal')">Cancelar</button>
         <button class="modal-btn-confirm" onclick="saveEditedBox()">Salvar Valor</button>
+      </div>
+      <button id="deleteBoxBtn" class="modal-btn-danger" onclick="deleteCurrentBox()">Excluir esta casinha</button>
+    </div>
+  </div>
+
+  <!-- MODAL APORTE EM CASCATA -->
+  <div id="extraModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h3 class="modal-title">Lançar Aporte em Cascata</h3>
+      <p class="modal-desc">
+        Digite o valor guardado agora (ex: <strong>6000</strong>). Ele quita todas as casinhas deste mês e já vai <strong>riscando automaticamente</strong> as casinhas dos próximos meses com a sobra!
+      </p>
+      <input type="number" id="extraAmountInput" class="modal-input" placeholder="Ex: 6000" min="1" step="1" />
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="closeModal('extraModal')">Cancelar</button>
+        <button class="modal-btn-confirm" onclick="applyCascadeDeposit()">Riscar em Cascata</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIGURAR IMPRESSÃO DIGITAL -->
+  <div id="biometricModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h3 class="modal-title">Desbloqueio por Digital</h3>
+      <p id="biometricModalDesc" class="modal-desc">
+        Ative o leitor de impressão digital ou reconhecimento facial do seu celular para entrar com um toque.
+      </p>
+      <div id="biometricStatusBox" class="install-steps" style="display:none;"></div>
+      <div class="modal-btns">
+        <button class="modal-btn-cancel" onclick="closeModal('biometricModal')">Fechar</button>
+        <button id="biometricActionBtn" class="modal-btn-confirm" onclick="registerBiometrics()">Ativar Digital</button>
       </div>
     </div>
   </div>
@@ -847,21 +943,6 @@
       <div class="modal-btns">
         <button class="modal-btn-cancel" onclick="downloadHtmlBackup()">Baixar Arquivo (.html)</button>
         <button class="modal-btn-confirm" onclick="closeModal('installModal')">Fechar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL APORTE EXTRA COM ABATIMENTO EM CASCATA -->
-  <div id="extraModal" class="modal-backdrop">
-    <div class="modal-card">
-      <h3 class="modal-title">Lançar Aporte Extra</h3>
-      <p class="modal-desc">
-        Digite o valor guardado agora. Ele quita as casinhas deste mês e abate o excedente dos próximos meses!
-      </p>
-      <input type="number" id="extraAmountInput" class="modal-input" placeholder="Ex: 6000" min="1" step="1" />
-      <div class="modal-btns">
-        <button class="modal-btn-cancel" onclick="closeModal('extraModal')">Cancelar</button>
-        <button class="modal-btn-confirm" onclick="applyCascadeDeposit()">Abater Valor</button>
       </div>
     </div>
   </div>
@@ -904,8 +985,9 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'desafio_50k_rosa_neon_pin_v1';
+    const STORAGE_KEY = 'desafio_50k_rosa_neon_v4';
     const PIN_KEY = 'desafio_50k_rosa_neon_user_pin';
+    const BIO_CRED_KEY = 'desafio_50k_rosa_neon_bio_cred_id';
 
     let currentPinInput = '';
     let tempSetupPin = '';
@@ -913,13 +995,11 @@
 
     let activeMonth = 0;
     let currentFilter = 'all';
-    let sessionAmount = 0;
-    let sessionCount = 0;
     let pendingDrawBoxIndex = null;
     let editingBoxIndex = null;
     let deferredInstallPrompt = null;
+    let toastTimer = null;
 
-    // Ícone e Manifesto dinâmico para permitir instalação como App PWA
     (function setupPwaShortcut() {
       const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#ff007f"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="190" fill="#ffffff">50K</text></svg>`;
       const iconUrl = 'data:image/svg+xml;base64,' + btoa(iconSvg);
@@ -973,17 +1053,160 @@
       a.click();
     }
 
+    function showToast(htmlMsg) {
+      const el = document.getElementById('cascadeToast');
+      el.innerHTML = htmlMsg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.remove('show');
+      }, 4500);
+    }
+
+    function bufToBase64(buf) {
+      return btoa(String.fromCharCode(...new Uint8Array(buf)));
+    }
+
+    function base64ToBuf(b64) {
+      const bin = atob(b64);
+      const arr = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+      return arr.buffer;
+    }
+
+    function updateBiometricUI() {
+      const credId = localStorage.getItem(BIO_CRED_KEY);
+      const bioBtn = document.getElementById('biometricUnlockBtn');
+      const bioConfigBtn = document.getElementById('bioConfigBtn');
+
+      if (credId && pinMode === 'verify') {
+        bioBtn.classList.remove('hidden');
+      } else {
+        bioBtn.classList.add('hidden');
+      }
+
+      if (credId) {
+        bioConfigBtn.classList.add('bio-active');
+      } else {
+        bioConfigBtn.classList.remove('bio-active');
+      }
+    }
+
+    function openBiometricModal() {
+      const credId = localStorage.getItem(BIO_CRED_KEY);
+      const desc = document.getElementById('biometricModalDesc');
+      const statusBox = document.getElementById('biometricStatusBox');
+      const actionBtn = document.getElementById('biometricActionBtn');
+
+      statusBox.style.display = 'none';
+
+      if (!window.PublicKeyCredential || !window.isSecureContext) {
+        desc.textContent = 'Para usar a impressão digital do celular, abra o app por um link seguro (HTTPS), como no GitHub Pages.';
+        statusBox.innerHTML = '<strong>Dica:</strong> Ao abrir como arquivo local offline, use sua senha PIN de 4 dígitos normalmente.';
+        statusBox.style.display = 'block';
+        actionBtn.style.display = 'none';
+      } else if (credId) {
+        desc.textContent = 'Sua impressão digital já está ativa neste aparelho! Deseja desativar?';
+        actionBtn.style.display = 'inline-block';
+        actionBtn.textContent = 'Desativar Digital';
+        actionBtn.onclick = disableBiometrics;
+      } else {
+        desc.textContent = 'Ative o leitor de impressão digital ou reconhecimento facial do seu celular para entrar com um toque.';
+        actionBtn.style.display = 'inline-block';
+        actionBtn.textContent = 'Ativar Digital';
+        actionBtn.onclick = registerBiometrics;
+      }
+
+      document.getElementById('biometricModal').classList.add('open');
+    }
+
+    async function registerBiometrics() {
+      try {
+        const challenge = new Uint8Array(32);
+        crypto.getRandomValues(challenge);
+        const userId = new Uint8Array(16);
+        crypto.getRandomValues(userId);
+
+        const credential = await navigator.credentials.create({
+          publicKey: {
+            challenge,
+            rp: { name: 'Desafio 50k Rosa Neon' },
+            user: {
+              id: userId,
+              name: 'usuario@desafio50k',
+              displayName: 'Desafio 50k'
+            },
+            pubKeyCredParams: [
+              { type: 'public-key', alg: -7 },
+              { type: 'public-key', alg: -257 }
+            ],
+            authenticatorSelection: {
+              authenticatorAttachment: 'platform',
+              userVerification: 'required'
+            },
+            timeout: 60000
+          }
+        });
+
+        if (credential && credential.rawId) {
+          localStorage.setItem(BIO_CRED_KEY, bufToBase64(credential.rawId));
+          updateBiometricUI();
+          closeModal('biometricModal');
+          showToast('Impressão digital ativada com sucesso!');
+        }
+      } catch (err) {
+        alert('Não foi possível ativar a biometria neste navegador. Verifique se o bloqueio de tela do celular está ativo.');
+      }
+    }
+
+    function disableBiometrics() {
+      localStorage.removeItem(BIO_CRED_KEY);
+      updateBiometricUI();
+      closeModal('biometricModal');
+      showToast('Desbloqueio por digital desativado.');
+    }
+
+    async function unlockWithBiometrics() {
+      const credIdB64 = localStorage.getItem(BIO_CRED_KEY);
+      if (!credIdB64) return;
+      const errorMsg = document.getElementById('lockErrorMsg');
+      errorMsg.textContent = '';
+
+      try {
+        const challenge = new Uint8Array(32);
+        crypto.getRandomValues(challenge);
+
+        const assertion = await navigator.credentials.get({
+          publicKey: {
+            challenge,
+            allowCredentials: [{
+              id: base64ToBuf(credIdB64),
+              type: 'public-key'
+            }],
+            userVerification: 'required',
+            timeout: 60000
+          }
+        });
+
+        if (assertion) {
+          unlockApp();
+        }
+      } catch (err) {
+        errorMsg.textContent = 'Leitura cancelada. Use o PIN ou tente novamente.';
+      }
+    }
+
     const MONTH_NAMES = [
       'Mês 1', 'Mês 2', 'Mês 3', 'Mês 4', 'Mês 5', 'Mês 6',
       'Mês 7', 'Mês 8', 'Mês 9', 'Mês 10', 'Mês 11', 'Mês 12'
     ];
 
     function buildInitialMonths() {
-      const basePattern = [100, 120, 140, 160, 180, 200, 220, 250, 280, 300, 340, 380, 420, 500, 577];
+      const basePattern = [100, 130, 160, 190, 220, 250, 280, 310, 340, 370, 400, 430, 470, 517];
       const months = [];
       for (let m = 0; m < 12; m++) {
         const boxes = basePattern.map((val, idx) => {
-          const adjustedVal = (m >= 8 && idx === 14) ? val - 1 : val;
+          const adjustedVal = (m >= 8 && idx === 13) ? val - 1 : val;
           return { amount: adjustedVal, done: false };
         });
         months.push(boxes);
@@ -1028,9 +1251,11 @@
       } else {
         pinMode = 'verify';
         lockTitle.textContent = 'App Protegido';
-        lockSubtitle.textContent = 'Digite sua senha PIN de 4 dígitos para entrar.';
+        lockSubtitle.textContent = 'Use sua digital ou digite o PIN de 4 dígitos.';
         forgotBtn.style.visibility = 'visible';
       }
+
+      updateBiometricUI();
     }
 
     function updatePinDots(isError = false) {
@@ -1131,7 +1356,7 @@
       }
       localStorage.setItem(PIN_KEY, val);
       closeModal('pinModal');
-      alert('Senha PIN atualizada com sucesso!');
+      showToast('Senha PIN atualizada com sucesso!');
     }
 
     function formatBRL(val) {
@@ -1179,7 +1404,7 @@
       const doneCount = currentBoxes.filter(b => b.done).length;
 
       document.getElementById('activeMonthTitle').textContent = MONTH_NAMES[activeMonth];
-      document.getElementById('activeMonthRange').textContent = `Meta: ${formatBRL(monthTotal)} (✎ editar valor)`;
+      document.getElementById('activeMonthRange').textContent = `Meta: ${formatBRL(monthTotal)}`;
       document.getElementById('activeMonthAmount').textContent = `${formatBRL(monthSaved)} de ${formatBRL(monthTotal)}`;
       document.getElementById('activeMonthCount').textContent = `${doneCount} de ${currentBoxes.length} casinhas`;
 
@@ -1193,7 +1418,7 @@
         card.id = `box-${bIdx}`;
         card.className = 'box-card' + (box.done ? ' checked' : '');
         card.innerHTML = `
-          <button class="box-edit-btn" title="Digitar valor" onclick="openEditBoxModal(event, ${bIdx})">
+          <button class="box-edit-btn" title="Editar valor" onclick="openEditBoxModal(event, ${bIdx})">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 20h9"></path>
               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
@@ -1206,16 +1431,45 @@
         gridEl.appendChild(card);
       });
 
-      updateSessionBar();
+      if (currentFilter !== 'done') {
+        const addCard = document.createElement('div');
+        addCard.className = 'box-card add-box-card';
+        addCard.innerHTML = `
+          <div class="add-box-plus">+</div>
+          <div class="add-box-label">Nova casinha</div>
+        `;
+        addCard.onclick = openAddBoxModal;
+        gridEl.appendChild(addCard);
+      }
     }
 
-    // EDITAR VALOR LIVRE DA CASINHA
+    function openAddBoxModal() {
+      const inputEl = document.getElementById('addBoxInput');
+      inputEl.value = '';
+      document.getElementById('addBoxModal').classList.add('open');
+      setTimeout(() => inputEl.focus(), 100);
+    }
+
+    function confirmAddBox(markDone) {
+      const val = parseFloat(document.getElementById('addBoxInput').value);
+      if (isNaN(val) || val <= 0) {
+        alert('Digite um valor válido maior que zero.');
+        return;
+      }
+      state[activeMonth].push({ amount: Math.round(val), done: markDone });
+      saveState();
+      closeModal('addBoxModal');
+      renderAll();
+      showToast(`Nova casinha de <strong>${formatBRL(val)}</strong> adicionada ao ${MONTH_NAMES[activeMonth]}!`);
+    }
+
     function openEditBoxModal(e, boxIdx) {
       e.stopPropagation();
       editingBoxIndex = boxIdx;
       const currentVal = Math.round(state[activeMonth][boxIdx].amount);
       const inputEl = document.getElementById('editBoxInput');
       inputEl.value = currentVal;
+      document.getElementById('deleteBoxBtn').style.display = state[activeMonth].length > 1 ? 'block' : 'none';
       document.getElementById('editBoxModal').classList.add('open');
       setTimeout(() => {
         inputEl.focus();
@@ -1237,34 +1491,20 @@
       renderAll();
     }
 
-    function toggleBox(boxIdx) {
-      const box = state[activeMonth][boxIdx];
-      box.done = !box.done;
-      if (box.done) {
-        sessionAmount += box.amount;
-        sessionCount += 1;
-      } else {
-        sessionAmount = Math.max(0, sessionAmount - box.amount);
-        sessionCount = Math.max(0, sessionCount - 1);
-      }
+    function deleteCurrentBox() {
+      if (editingBoxIndex === null || state[activeMonth].length <= 1) return;
+      state[activeMonth].splice(editingBoxIndex, 1);
+      editingBoxIndex = null;
       saveState();
+      closeModal('editBoxModal');
       renderAll();
     }
 
-    function updateSessionBar() {
-      const bar = document.getElementById('sessionBar');
-      if (sessionCount > 0) {
-        document.getElementById('sessionInfoVal').textContent = `${formatBRL(sessionAmount)} • ${sessionCount} casinha${sessionCount > 1 ? 's' : ''}`;
-        bar.classList.add('visible');
-      } else {
-        bar.classList.remove('visible');
-      }
-    }
-
-    function clearSessionCounter() {
-      sessionAmount = 0;
-      sessionCount = 0;
-      updateSessionBar();
+    function toggleBox(boxIdx) {
+      const box = state[activeMonth][boxIdx];
+      box.done = !box.done;
+      saveState();
+      renderAll();
     }
 
     function setFilter(filter, btnEl) {
@@ -1282,57 +1522,55 @@
     }
 
     function applyCascadeDeposit() {
-      let deposit = parseFloat(document.getElementById('extraAmountInput').value);
-      if (isNaN(deposit) || deposit <= 0) {
+      const initialDeposit = parseFloat(document.getElementById('extraAmountInput').value);
+      if (isNaN(initialDeposit) || initialDeposit <= 0) {
         alert('Digite um valor válido maior que zero.');
         return;
       }
 
+      let remaining = Math.round(initialDeposit);
+      let checkedCurrentMonth = 0;
+      let checkedNextMonthsCount = 0;
+      let spilloverAmount = 0;
+
       const curBoxes = state[activeMonth];
-      for (let i = 0; i < curBoxes.length && deposit > 0; i++) {
+      for (let i = 0; i < curBoxes.length && remaining > 0; i++) {
         if (!curBoxes[i].done) {
-          if (deposit >= curBoxes[i].amount) {
-            deposit -= curBoxes[i].amount;
+          if (remaining >= curBoxes[i].amount) {
+            remaining -= curBoxes[i].amount;
             curBoxes[i].done = true;
+            checkedCurrentMonth++;
           } else {
-            curBoxes[i].amount -= deposit;
-            deposit = 0;
+            const paidPart = remaining;
+            curBoxes[i].amount -= paidPart;
+            curBoxes.splice(i, 0, { amount: paidPart, done: true });
+            remaining = 0;
+            checkedCurrentMonth++;
+            break;
           }
         }
       }
 
-      if (deposit > 0) {
-        const pendingRefs = [];
-        let pendingSum = 0;
-        for (let m = 0; m < 12; m++) {
-          if (m === activeMonth) continue;
-          state[m].forEach(b => {
-            if (!b.done && b.amount > 0) {
-              pendingRefs.push(b);
-              pendingSum += b.amount;
-            }
-          });
-        }
-
-        if (pendingSum > 0) {
-          if (deposit >= pendingSum) {
-            pendingRefs.forEach(b => {
-              b.done = true;
-            });
-          } else {
-            const ratio = (pendingSum - deposit) / pendingSum;
-            let distributedNewSum = 0;
-            const targetNewSum = Math.round(pendingSum - deposit);
-
-            pendingRefs.forEach((b, idx) => {
-              if (idx === pendingRefs.length - 1) {
-                b.amount = Math.max(1, targetNewSum - distributedNewSum);
+      if (remaining > 0) {
+        spilloverAmount = remaining;
+        for (let step = 1; step < 12 && remaining > 0; step++) {
+          const mIdx = (activeMonth + step) % 12;
+          const mBoxes = state[mIdx];
+          for (let i = 0; i < mBoxes.length && remaining > 0; i++) {
+            if (!mBoxes[i].done) {
+              if (remaining >= mBoxes[i].amount) {
+                remaining -= mBoxes[i].amount;
+                mBoxes[i].done = true;
+                checkedNextMonthsCount++;
               } else {
-                const newVal = Math.max(1, Math.round(b.amount * ratio));
-                b.amount = newVal;
-                distributedNewSum += newVal;
+                const paidPart = remaining;
+                mBoxes[i].amount -= paidPart;
+                mBoxes.splice(i, 0, { amount: paidPart, done: true });
+                remaining = 0;
+                checkedNextMonthsCount++;
+                break;
               }
-            });
+            }
           }
         }
       }
@@ -1340,6 +1578,18 @@
       saveState();
       closeModal('extraModal');
       renderAll();
+
+      if (spilloverAmount > 0) {
+        showToast(
+          `Aporte de <strong>${formatBRL(initialDeposit)}</strong> lançado! ` +
+          `Sobrou <strong>${formatBRL(spilloverAmount)}</strong> e já riscamos <strong>${checkedNextMonthsCount} casinha(s)</strong> dos próximos meses automaticamente!`
+        );
+      } else {
+        showToast(
+          `Aporte de <strong>${formatBRL(initialDeposit)}</strong> lançado! ` +
+          `<strong>${checkedCurrentMonth} casinha(s)</strong> riscada(s) em ${MONTH_NAMES[activeMonth]}.`
+        );
+      }
     }
 
     function drawRandomBox() {
@@ -1386,8 +1636,6 @@
 
     function resetAllData() {
       state = buildInitialMonths();
-      sessionAmount = 0;
-      sessionCount = 0;
       saveState();
       closeModal('resetModal');
       renderAll();
@@ -1399,6 +1647,10 @@
 
     initLockScreen();
     renderAll();
+
+    if (localStorage.getItem(PIN_KEY) && localStorage.getItem(BIO_CRED_KEY) && window.isSecureContext) {
+      setTimeout(unlockWithBiometrics, 350);
+    }
   </script>
 </body>
 </html>
